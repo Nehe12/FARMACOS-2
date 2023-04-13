@@ -6,19 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
-    /**
+  /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('farmacos_bibliografias',function(Blueprint $table){
-            $table ->id();
+        Schema::create('interacciones', function (Blueprint $table) {
+            $table->id();
+            $table->text('interaccion');
             $table->unsignedBigInteger('id_farmaco');
             $table->foreign('id_farmaco')->references('id')->on('farmacos')->onDelete('cascade');
-            $table->unsignedBigInteger('id_bibliografia');
-            $table->foreign('id_bibliografia')->references('id')->on('bibliografias')->onDelete('cascade');
-            $table ->timestamps();
+            $table->integer('status')->default(0);
+            $table->timestamps();
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('farmacos_bibliografias');
+        Schema::dropIfExists('interacciones');
     }
 };

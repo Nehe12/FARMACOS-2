@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bibliografias;
 use Illuminate\Http\Request;
 
-class BibliografiaController extends Controller
+class Farmaco_BibliografiaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,20 +27,7 @@ class BibliografiaController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $bibliografia = new Bibliografias();
-        $bibliografia->titulo=$request->titulo;
-        $bibliografia->descripcion=$request->descripcion;
-        $bibliografia->autor=$request->autor;
-        $bibliografia->anio=$request->año;
-        $bibliografia->editorial=$request->editorial;
-        if (isset($request->estatus)) {
-            $bibliografia->estatus=$request->input('estatus');
-           }else {
-               $bibliografia->estatus=0;
-           }
-        $bibliografia->save();
-        return redirect('/farmaco');
+        //
     }
 
     /**

@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('interacciones', function (Blueprint $table) {
-            $table->id('ID');
-            $table->text('interaccion');
-            $table->unsignedBigInteger('id_farmaco');
-            $table->foreign('id_farmaco')->references('id')->on('farmacos')->onDelete('cascade');
-            $table->integer('status')->default(0);
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('interacciones');
+        Schema::dropIfExists('users');
     }
 };
