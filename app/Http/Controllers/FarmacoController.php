@@ -21,15 +21,13 @@ class FarmacoController extends Controller
      */
     public function index()
     {
-        $sql = "SELECT `farmacos`.`id`, `farmacos`.`farmaco`, `farmacos`.`mecanismo`,`farmacos`.`url`, `farmacos`.`efecto`,  `grupo_farmacos`.`grupo`, `bibliografias`.`titulo`
+        $sql = "SELECT `farmacos`.`id`, `farmacos`.`farmaco`, `farmacos`.`mecanismo`, `farmacos`.`url`, `farmacos`.`efecto`, `grupo_farmacos`.`grupo`
         FROM `farmacos` 
-            LEFT JOIN `grupo_farmacos` ON `farmacos`.`id_grupo` = `grupo_farmacos`.`id` 
-            LEFT JOIN `farmaco_bibliografia` ON `farmaco_bibliografia`.`farmacos_id` = `farmacos`.`id` 
-            LEFT JOIN `bibliografias` ON `farmaco_bibliografia`.`bibliografias_id` = `bibliografias`.`id`";
+            LEFT JOIN `grupo_farmacos` ON `farmacos`.`id_grupo` = `grupo_farmacos`.`id`";
         $farmacos = DB::select($sql);
-        $interacciones= Interacciones::all();
+        $interacciones = Interacciones::all();
         $interacciones->toJson();
-        return view("index", compact('farmacos','interacciones'));
+        return view("index", compact('farmacos', 'interacciones'));
     }
 
     /**
@@ -40,8 +38,8 @@ class FarmacoController extends Controller
         $bibliografia = Bibliografias::all();
         $grupo = GrupoFarmaco::all();
         $farmacos = Farmacos::all();
-        $itemfarmaco = Farmacos::latest()->first();
-        return view('farmaco', compact('bibliografia', 'grupo', 'itemfarmaco'));
+        // $itemfarmaco = Farmacos::latest()->first();
+        return view('farmaco', compact('bibliografia', 'grupo'));
     }
 
     /**
@@ -49,7 +47,7 @@ class FarmacoController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         // $farmaco = new Farmacos();
         // if ($farmaco->id  == "") {
         //    /* $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath(), [
@@ -92,11 +90,11 @@ class FarmacoController extends Controller
         // // return redirect()->route('crear.farmaco');
         // return redirect()->route('crear.farmaco', compact('farmaquito', 'bibliografia', 'grupo'));*/
         $farmaco = new Farmacos();
-         $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath(), [
-             'folder' => 'farmacos2',
-         ]);
-         $url = $uploadedFileUrl->getSecurePath();
-         $public_id = $uploadedFileUrl->getPublicId();
+        $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath(), [
+            'folder' => 'farmacos2',
+        ]);
+        $url = $uploadedFileUrl->getSecurePath();
+        $public_id = $uploadedFileUrl->getPublicId();
         $url = Cloudinary::getUrl($public_id);
 
 
@@ -106,7 +104,7 @@ class FarmacoController extends Controller
         $farmaco->url = $url;
         $farmaco->efecto = $request->efecto;
         $id_bibliografia = $request->bibliografia;
-        
+
         $farmaco->id_grupo = $request->grupo;
         if (isset($request->estatus)) {
             $farmaco->status = $request->input('estatus');
@@ -115,7 +113,15 @@ class FarmacoController extends Controller
         }
         $farmaco->save();
         $farmaco->bibliografias()->attach($id_bibliografia);
-        return redirect()->route('crear.farmaco')->with('success', 'Agregado con exito!!');
+        
+        $itemfarmaco = Farmacos::latest()->first();
+        $biblioselect = Farmacos::select('bibliografias.*')
+        ->join('farmacobibliografia','farmacos.id','=','farmacobibliografia.farmacos_id')
+        ->join('bibliografias','farmacobibliografia.bibliografias_id' ,'=','bibliografias.id')
+        ->where('farmacos.id',$itemfarmaco);
+        $bibliografia = Bibliografias::all();
+        $id = $itemfarmaco;
+        return redirect()->route('edit.farmaco', compact('id','itemfarmaco','bibliografia'))->with('success', 'Agregado con exito!!');
     }
 
     /**
@@ -142,7 +148,11 @@ class FarmacoController extends Controller
         $bibliografia = Bibliografias::all();
         $grupo = GrupoFarmaco::all();
         $interacciones = Interacciones::all();
-        return view('editarFarmaco', compact('farmacos', 'bibliografia', 'grupo', 'interacciones'));
+        $biblioselect = Farmacos::select('bibliografias.*')
+        ->join('farmacobibliografia','farmacos.id','=','farmacobibliografia.farmacos_id')
+        ->join('bibliografias','farmacobibliografia.bibliografias_id' ,'=','bibliografias.id')
+        ->where('farmacos.id',$farmacos);
+        return view('editarFarmaco', compact('farmacos', 'bibliografia', 'grupo', 'interacciones','biblioselect'));
     }
 
     /**
@@ -176,8 +186,13 @@ class FarmacoController extends Controller
             $farmaco->status = 0;
         }
         $farmaco->save();
-        $farmaco->bibliografias()->attach($id_bibliografia);
-        return redirect()->route('edit.farmaco', compact('id'))->with('success', 'Actualizado con exito!!');
+        $farmaco->bibliografias()->sync($id_bibliografia);
+        $biblioselect = Farmacos::select('bibliografias.*')
+        ->join('farmacobibliografia','farmacos.id','=','farmacobibliografia.farmacos_id')
+        ->join('bibliografias','farmacobibliografia.bibliografias_id' ,'=','bibliografias.id')
+        ->where('farmacos.id',$id);
+        $bibliografia = Bibliografias::all();
+        return redirect()->route('edit.farmaco', compact('id','biblioselect','bibliografia'))->with('success', 'Actualizado con exito!!');
     }
 
     /**
@@ -185,29 +200,29 @@ class FarmacoController extends Controller
      */
     public function destroy(string $id)
     {
-         //$interacciones = Interacciones::all();
-         $farmaco = Farmacos::find($id);
-         $public_id = $farmaco->public_id;
+        //$interacciones = Interacciones::all();
+        $farmaco = Farmacos::find($id);
+        $public_id = $farmaco->public_id;
         //  Cloudinary::destroy($public_id);
-         //$farmacos->$interacciones->delete();
-         $farmaco->delete();
-         return redirect()->route('inicio')->with('success', 'Eliminado con exito!!');
+        //$farmacos->$interacciones->delete();
+        $farmaco->delete();
+        return redirect()->route('inicio')->with('success', 'Eliminado con exito!!');
     }
-      /*Mostrar  */
-      public function mostrar($id)
-      {
-  
-          $grupo = GrupoFarmaco::all();
-          $interacciones = Interacciones::all();
-          $bibliografia = Bibliografias::all();
-          $sql2 = "SELECT `farmacos`.`id`,`farmacos`.`farmaco`, `farmacos`.`efecto`, `farmacos`.`mecanismo`, `farmacos`.`url`, `bibliografias`.`titulo`, `grupo_farmacos`.`grupo`,  `interacciones`.`interaccion`
+    /*Mostrar  */
+    public function mostrar($id)
+    {
+
+        $grupo = GrupoFarmaco::all();
+        $interacciones = Interacciones::all();
+        $bibliografia = Bibliografias::all();
+        $sql2 = "SELECT `farmacos`.`id`,`farmacos`.`farmaco`, `farmacos`.`efecto`, `farmacos`.`mecanismo`, `farmacos`.`url`, `bibliografias`.`titulo`, `grupo_farmacos`.`grupo`,  `interacciones`.`interaccion`
                   FROM `farmacos`
                   LEFT JOIN `bibliografias` ON `farmacos`.`id_bibliografia` = `bibliografias`.`id`
                   LEFT JOIN `grupo_farmacos` ON `farmacos`.`id_grupo` = `grupo_farmacos`.`id`
                   LEFT JOIN `interacciones` ON `interacciones`.`id_farmaco` = `farmacos`.`id`";
-          $farmacos2 = DB::select($sql2);
-          $farmacos2 = Farmacos::find($id);
-          $farmacos2->toArray();
-          return view('mostrar', compact('farmacos2', 'grupo', 'interacciones', 'bibliografia'));
-      }
+        $farmacos2 = DB::select($sql2);
+        $farmacos2 = Farmacos::find($id);
+        $farmacos2->toArray();
+        return view('mostrar', compact('farmacos2', 'grupo', 'interacciones', 'bibliografia'));
+    }
 }

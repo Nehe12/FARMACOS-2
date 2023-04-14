@@ -27,7 +27,7 @@
                             <th>FARMACO</th>
                             <th>MECANISMO</th>
                             <th>EFECTO</th>
-                            <th>BIBLIOGRAFIA</th>
+                            <!-- <th>BIBLIOGRAFIA</th> -->
                             <th>GRUPO</th>
                             <th>VER</th>
                             <th>EDITAR</th>
@@ -41,7 +41,6 @@
                             <td>{{$far->farmaco}}</td>
                             <td>{{$far->mecanismo}}</td>
                             <td>{{$far->efecto}}</td>
-                            <td>{{$far->titulo}}</td>
                             <td>{{$far->grupo}}</td>
                             <td>
                                 <div class="text-start">
@@ -49,7 +48,7 @@
                                         <i class="bi bi-eye-fill"></i>
                                     </a>  -->
                                     
-                                    <button type="button" class="btn btn-success btnShow btn-sm" id="mostrar" data-bs-toggle="modal" data-bs-target="#mostrarInter" data-farmaco="{{$far->farmaco}}" data-mecanismo="{{$far->mecanismo}}" data-imagen="{{$far->url}}" data-efecto="{{$far->efecto}}" data-titulo="{{$far->titulo}}" data-grupo="{{$far->grupo}}" data-interaccion=""><i class="bi bi-eye-fill"></i></button>
+                                    <button type="button" class="btn btn-success btnShow btn-sm" id="mostrar" data-bs-toggle="modal" data-bs-target="#mostrarInter" data-farmaco="{{$far->farmaco}}" data-mecanismo="{{$far->mecanismo}}" data-imagen="{{$far->url}}" data-efecto="{{$far->efecto}}" data-titulo="" data-grupo="{{$far->grupo}}" data-interaccion=""><i class="bi bi-eye-fill"></i></button>
                                     
 
                                 </div>
@@ -81,7 +80,7 @@
                             <th>FARMACO</th>
                             <th>MECANISMO</th>
                             <th>EFECTO</th>
-                            <th>BIBLIOGRAFIA</th>
+                            <!-- <th>BIBLIOGRAFIA</th> -->
                             <th>GRUPO</th>
                             <th>VER</th>
                             <th>EDITAR</th>

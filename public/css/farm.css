@@ -1,5 +1,6 @@
 
-.navbar{
+span.navbar{
+    color: black;
 }
 .navbar,.register{
     font-family:  'Ubuntu', sans-serif;

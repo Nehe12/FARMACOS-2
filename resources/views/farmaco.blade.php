@@ -1,5 +1,6 @@
 <?php
-  use Illuminate\Support\Str;
+
+use Illuminate\Support\Str;
 ?>
 @extends('header')
 
@@ -48,10 +49,11 @@
           <h5 class="card-title">FÁRMACOS</h5>
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <form class="was-validated container-fluid justify-content-start" action="{{route('store.farmaco')}}" method="post" enctype="multipart/form-data">
-                @csrf
+
+          <form class="was-validated container-fluid justify-content-start" action="{{route('store.farmaco')}}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="row">
+              <div class="col">
                 <div class="col-md-12">
                   <label for="farmaco" class="form-label">Farmaco </label>
                   <input type="text" class="form-control is-valid" name="farmaco" required>
@@ -70,18 +72,40 @@
                   <div class="invalid-feedback">
                   </div>
                 </div><!-- -->
+              </div>
+              <div class="col">
+
                 <div class="col-md-12">
                   <label for="efecto" class="form-label">Efecto </label>
                   <input type="text" class="form-control is-valid" id="efecto" name="efecto" value="" required>
                   <div class="valid-feedback">
                   </div>
                 </div><!-- -->
-            </div>
-            <div class="col">
+                <div class="py-2 col-md-12 ">
+                  <label for="grupo" class="form-label">Grupo</label>
+                  <select class="form-control selectpicker" title="Seleccionar Grupo" data-style="btn btn-secondary" multiselect-search="true" name="grupo" id="grupo" required>
+                    <!-- <option selected disabled>Seleccionar Grupo</option> -->
+                    @if(isset($grupo))
+                    @foreach($grupo as $grupos)
+                    <option value="{{$grupos->id}}">{{$grupos->grupo}}</option>
+                    @endforeach
+                    @endif
+                  </select>
+                  <a class=" btn btn-primary boton-select" href="" data-bs-toggle="modal" data-bs-target="#grupoM">CREAR GRUPO</a>
+                </div><!-- -->
+                <div class="col-md-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" id="estatus" name="estatus">
+                    <label class="form-check-label" for="flexCheckDefault">Estatus</label>
+                  </div>
+                  <div class="valid-feedback">
+                  </div>
+                </div><!-- -->
+
+              </div>
               <div class="py-2 col-md-12">
                 <label for="bibliografia" class="form-label">Bibliografia</label>
-                <select class="form-control selectpicker"  data-style="btn" multiple multiselect-search="true"
-                name="bibliografia[]" id="bibliografia" title="Seleccionar Bibliografia" required>
+                <select class="form-control selectpicker" data-style="btn btn-secondary" name="bibliografia[]" id="bibliografia" title="Seleccionar Bibliografia" multiple required multiselect-search="true">
                   <!-- <option selected disabled value="">Seleccionar Bibliografia</option> -->
                   @if(isset($bibliografia))
                   @foreach($bibliografia as $biblios)
@@ -92,36 +116,16 @@
                 <!-- {{route('create.bibliografia')}} -->
                 <a class=" btn btn-primary boton-select" href="" data-bs-toggle="modal" data-bs-target="#bibliografiaM">CREAR BIBLIOGRAFIA</a>
               </div><!-- -->
-              <div class="py-2 col-md-12 ">
-                <label for="grupo" class="form-label">Grupo</label>
-                <select class="form-select " title="Seleccionar Grupo" name="grupo" id="grupo" required>
-                  <!-- <option value="">Seleccionar Grupo</option> -->
-                  @if(isset($grupo))
-                  @foreach($grupo as $grupos)
-                  <option value="{{$grupos->id}}">{{$grupos->grupo}}</option>
-                  @endforeach
-                  @endif
-                </select>
-                <a class=" btn btn-primary boton-select" href="" data-bs-toggle="modal" data-bs-target="#grupoM">CREAR GRUPO</a>
-              </div><!-- -->
-              <div class="col-md-12">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="1" id="estatus" name="estatus">
-                  <label class="form-check-label" for="flexCheckDefault">Estatus</label>
-                </div>
-                <div class="valid-feedback">
-                </div>
-              </div><!-- -->
-              <div class="mb-3 enviar-form">
-                <a href="{{route('inicio')}}" class="btn btn-info">INICIO</a>
-                <a class="btn btn-primary " href="" data-bs-toggle="modal" data-bs-target="#interaccion">INTERACCIONES</a>
-
-                <button class="btn btn-primary" type="submit">GUARDAR FARMACO</button>
-
-                </form>
-              </div>
             </div>
-          </div>
+            <div class="mb-3 enviar-form">
+              <a href="{{route('inicio')}}" class="btn btn-info">INICIO</a>
+              <!-- <a class="btn btn-primary " href="" data-bs-toggle="modal" data-bs-target="#interaccion">INTERACCIONES</a> -->
+
+              <button class="btn btn-primary" type="submit">GUARDAR FARMACO</button>
+            </div>
+          </form>
+
+
 
 
 
@@ -146,9 +150,9 @@
                   <label for="interaccion" class="form-label">Interacción</label>
                   <input type="text" class="form-control" id="interaccion" name="interaccion" placeholder="Interaccion" required>
                 </div>
-                @if(isset($itemfarmaco))
+                <!-- @if(isset($itemfarmaco))
                 <input type="number" value="{{$itemfarmaco->id}}" name="id_interaccion" hidden>
-                @endif
+                @endif -->
                 <div class="mb-3 col-md-9 pt-3">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="1" id="estatus" name="estatus">
@@ -252,4 +256,4 @@
         </div>
       </div>
 
-@endsection
+      @endsection

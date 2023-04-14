@@ -6,12 +6,12 @@
 
 
 
-<div class="card ">
-  <div class="card-header">
-    <h4 class="register card-title">EDITAR {{$farmacos->farmaco}}</h4>
+<div class="card pt-2">
+  <div class="card-header ">
+    <h4 class="register card-title">Editar {{$farmacos->farmaco}}</h4>
   </div>
   <div class="card-body py-3">
-    <div class="col-sm-12">
+    <div class="col-sm-12 ">
       @if($mensaje = Session::get('msg'))
       <div class="alert alert-success" role="alert">
         {{$mensaje}}
@@ -57,24 +57,10 @@
             </div>
           </div><!-- -->
 
-          <div class="py-2 col-md-9">
-            <label for="" class="form-label">Bibliografia</label>
-            <select class="form-control selectpicker" required aria-label="select example" name="bibliografia" 
-            id="bibliografia" multiple>
 
-              @foreach($bibliografia as $biblios)
-              @if($farmacos->id_bibliografia == $biblios->id)
-              <option value="{{$biblios->id}}">{{$biblios->titulo}}</option>
-              @endif
-              @endforeach
-              @foreach($bibliografia as $items)
-              <option value="{{$items->id}}">{{$items->titulo}}</option>
-              @endforeach
-            </select>
-          </div><!-- -->
           <div class="py-2 col-md-9">
             <label for="" class="form-label">Grupo</label>
-            <select class="form-select" required aria-label="select example" name="grupo" id="grupo">
+            <select class="form-control selectpicker" data-style="btn btn-secondary" name="grupo" id="grupo">
               @if(isset($grupo))
               @foreach($grupo as $grupos)
               @if($farmacos->id_grupo == $grupos->id)
@@ -94,14 +80,32 @@
             </div>
           </div><!-- -->
 
-          <div class="mb-3 enviar-form">
 
-            <button class="btn btn-warning" type="submit">ACTUALIZAR FARMACO</button>
-            <a href="{{route('inicio')}}" class="btn btn-info">REGRESAR</a>
-            <a class=" btn btn-success " href="" data-bs-toggle="modal" data-bs-target="#AgregarInter">AGREGAR INTERACCIÓN</a>
+        </div>
+        <div class="py-2 ">
+          <label for="" class="form-label">Bibliografia</label>
+          <select class="form-control selectpicker" 
+          data-style="btn btn-secondary" title="Seleccionar Bibliografia" name="bibliografia[]" id="bibliografia" multiple>
+            @foreach($bibliografia as $biblios)
+            @php
+            $selected = in_array($biblios->id,$biblioselect->pluck('id')->toArray());
+            print_r($biblios->id);
+            @endphp
+            <option value="{{$biblios->id}}" {{ $selected ? 'selected' : '' }} >{{$biblios->titulo}}</option>
+            @endforeach
 
-          </div><!-- -->
+          </select>
+        </div><!-- -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-warning mb-3 " type="submit">ACTUALIZAR FARMACO</button>
+        </div>
+
     </form>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <a class="btn btn-primary " href="{{ route('crear.farmaco') }}"> NUEVO FÁRMACO</a>
+      <a class=" btn btn-success " href="" data-bs-toggle="modal" data-bs-target="#AgregarInter">AGREGAR INTERACCIÓN</a>
+    </div>
+
 
   </div>
 
@@ -184,7 +188,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Interaccion</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Interacción</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -195,10 +199,10 @@
           <input type="text" value="{{$farmacos->id}}" name="id_farmaco" hidden>
 
 
-          <div class="mb-3 col-md-9 pt-3">
-            <label for="interaccion" class="form-label">Interacción</label>
+          <div class=" col-md">
+            <label for="interaccionA" class="form-label">Interacción</label>
+            <textarea class="form-control" name="interaccionA" id="interaccionA" cols="10" rows="5" required placeholder="Interacción"></textarea>
 
-            <input type="text" class="form-control " name="interaccionA" id="estatus" required placeholder="Interacción">
             <div class="valid-feedback">
             </div>
 

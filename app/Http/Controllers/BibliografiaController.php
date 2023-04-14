@@ -12,7 +12,8 @@ class BibliografiaController extends Controller
      */
     public function index()
     {
-        //
+        $biblios = Bibliografias::all();
+        return view('editBibliografia',compact('biblios'));
     }
 
     /**
@@ -63,16 +64,30 @@ class BibliografiaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $bibliografia = Bibliografias::find($request->biblioID);
+        $bibliografia->titulo=$request->tituloU;
+        $bibliografia->descripcion=$request->descripcionU;
+        $bibliografia->autor=$request->autorU;
+        $bibliografia->anio=$request->añoU;
+        $bibliografia->editorial=$request->editorialU;
+        if (isset($request->estatusU)) {
+            $bibliografia->estatus=$request->input('estatusU');
+           }else {
+               $bibliografia->estatus=0;
+           }
+        $bibliografia->save();
+        return redirect()->route('show.biblios');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $bibliografia = Bibliografias::find($id);
+        $bibliografia->delete();
+        return redirect()->route('show.biblios');
     }
 }

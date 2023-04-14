@@ -11,6 +11,6 @@ class Bibliografias extends Model
     use HasFactory;
     public function farmacos()
     {
-        return $this->belongsToMany(Farmacos::class, 'farmaco_bibliografia');
+        return $this->belongsToMany(Farmacos::class, 'farmacobibliografia');
     }
 }

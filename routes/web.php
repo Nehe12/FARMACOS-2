@@ -5,6 +5,7 @@ use App\Http\Controllers\FarmacoController;
 use App\Http\Controllers\GrupoFarmacoController;
 use App\Http\Controllers\InteraccionesController;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,14 +33,21 @@ Route::controller(FarmacoController::class)->group(function () {
 });
 Route::controller(BibliografiaController::class)->group(function () {
     Route::get('/bibliografia', 'create')->name('create.bibliografia');
+    Route::get('/editBibliografia','index')->name('show.biblios');
     Route::post('/bibliografia/savebiblio', 'store')->name('store.bibliografia');
+    Route::put('/updateB','update')->name('update.biblio');
+    Route::delete('/destroyB/{id}','destroy')->name('destroy.biblio');
 });
 Route::controller(GrupoFarmacoController::class)->group(function () {
     Route::get('/grupo', 'create')->name('create.grupo');
+    Route::get('/editGrupo','index')->name('show.grupos');
     Route::post('/grupo/saveGroup', 'store')->name('store.grupo');
+    Route::put('/updateG','update')->name('update.grupo');
+    Route::delete('/destroyG/{id}','destro')->name('destroy.grupo');
 });
 Route::controller(InteraccionesController::class)->group(function () {
     // route::get('/interacciones','create')->name('create.interacciones');
+   
     route::post('/guardar', 'store')->name('store.interacciones');
     route::post('/guardari', 'store2')->name('store2.interacciones');
     route::get('/interacciones/{id}', 'edit')->name('edit.interacciones');

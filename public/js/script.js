@@ -19,32 +19,6 @@ $(document).ready(function () {
     $("#interaccionN").val(interaccionV);
   })
 
-})
-
-// sweet alert 2
-$('#delete_interaccion').click(function (e) {
-  e.preventDefault();
-  // const form = $(this).parents('form');
-  console.log("Hola");
-  // Swal.fire({
-  //   title: 'Estas seguro',
-  //   text: "No prodas revertirlo",
-  //   icon: 'warning',
-  //   showCancelButton: true,
-  //   confirmButtonColor: '#3085d6',
-  //   cancelButtonColor: '#d33',
-  //   confirmButtonText: 'Sim, delete it!'
-  // }).then((result) => {
-  //   if (result.isConfirmed) {
-
-  //     this.submit();
-  //     // Swal.fire(
-  //     //   'Deleted!',
-  //     //   'Your file has been deleted.',
-  //     //   'success'
-  //     // )
-  //   }
-  // });
 });
 /*Modal actualizar Interaccion */
 $(document).ready(function () {
@@ -59,6 +33,111 @@ $(document).ready(function () {
     $("#id_farmaco").val(id_farmaco);
   });
 });
+/*Modal actualizar Bibliografia */
+$(document).ready(function () {
+  $(document).on('click', '#bt-modalBiblio', function () {
+    const id_bilio= $(this).data('id_biblio');
+    const titulo= $(this).data('titulo');
+    const descripcion= $(this).data('descrip');
+    const autor= $(this).data('autor');
+    const anio= $(this).data('anio');
+    const editorial= $(this).data('editorial');
+
+    $('#biblioID').val(id_bilio);
+    $('#tituloU').val(titulo);
+    $('#descripcionU').val(descripcion);
+    $('#autorU').val(autor);
+    $('#añoU').val(anio);
+    $('#editorialU').val(editorial);
+  })
+});
+/*Modal actualizar grupo */
+$(document).ready(function () {
+  $(document).on('click','#bt-modalGrupo',function(){
+    const id_grupo=$(this).data('id_grupo');
+    const grupo=$(this).data('grupo');
+    const subgrupo=$(this).data('subgrupo');
+
+    $('#grupo_id').val(id_grupo);
+    $('#grupoU').val(grupo);
+    $('#subgrupoU').val(subgrupo);
+  })
+})
+// sweet alert 2 Interaccion
+$('#delete_interaccion').click(function (event) {
+  event.preventDefault();
+  // const form = $(this).parents('form');
+  console.log("Hola");
+  Swal.fire({
+    title: 'Estas seguro',
+    text: "No prodas revertirlo",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      this.submit();
+      // Swal.fire(
+      //   'Deleted!',
+      //   'Your file has been deleted.',
+      //   'success'
+      // )
+    }
+  });
+});
+
+/*Delete grupo */
+$('#delete_grupo').click(function (event) {
+  event.preventDefault();
+  // const form = $(this).parents('form');
+  console.log("Hola");
+  Swal.fire({
+    title: 'Estas seguro',
+    text: "No prodas revertirlo",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      this.submit();
+      // Swal.fire(
+      //   'Deleted!',
+      //   'Your file has been deleted.',
+      //   'success'
+      // )
+    }
+  });
+});
+$('#delete_bibliografia').click(function (event) {
+  event.preventDefault();
+  // const form = $(this).parents('form');
+  console.log("Hola");
+  Swal.fire({
+    title: 'Estas seguro',
+    text: "No prodas revertirlo",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      this.submit();
+      // Swal.fire(
+      //   'Deleted!',
+      //   'Your file has been deleted.',
+      //   'success'
+      // )
+    }
+  });
+});
 /* Tabla farmaco */
 $(document).ready(function () {
   $('#farmaco').DataTable({
@@ -71,5 +150,17 @@ $(document).ready(function () {
     "lengthMenu": [[8, 15], [8, 15, "All"]]
   });
 });
+/*Tabla Bibliografias */
+$(document).ready(function () {
+  $('#tabla_biblios').DataTable({
+    "lengthMenu": [[5, 10, 50, 100, -1], [5, 10, 50, 100, "All"]]
+  });
+});
 
+/*Tabla Bibliografias */
+$(document).ready(function () {
+  $('#tabla_grupo').DataTable({
+    "lengthMenu": [[5, 10, 50, 100, -1], [5, 10, 50, 100, "All"]]
+  });
+});
 

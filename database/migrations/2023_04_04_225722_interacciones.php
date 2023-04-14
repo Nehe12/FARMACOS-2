@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('interaccion');
             $table->unsignedBigInteger('id_farmaco');
-            $table->foreign('id_farmaco')->references('id')->on('farmacos')->onDelete('cascade');
+            $table->foreign('id_farmaco')->references('id')->on('farmacos')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('status')->default(0);
             $table->timestamps();
         });

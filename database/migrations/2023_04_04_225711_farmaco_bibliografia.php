@@ -12,12 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('farmaco_bibliografia', function (Blueprint $table) {
+        Schema::create('farmacobibliografia', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('bibliografias_id')->nullable();
+            $table->foreign('bibliografias_id')->references('id')->on('bibliografias')->onUpdate('cascade')->onDelete('set null');
             $table->unsignedBigInteger('farmacos_id');
-            $table->foreign('farmacos_id')->references('id')->on('farmacos')->onDelete('cascade');
-            $table->unsignedBigInteger('bibliografias_id');
-            $table->foreign('bibliografias_id')->references('id')->on('bibliografias')->onDelete('cascade');
+            $table->foreign('farmacos_id')->references('id')->on('farmacos')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

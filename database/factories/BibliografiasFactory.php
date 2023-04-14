@@ -17,7 +17,7 @@ class BibliografiasFactory extends Factory
     public function definition(): array
     {
         return [
-            'titulo'=>fake()->title(),
+            'titulo'=>fake()->sentence(),
             'descripcion'=>fake()->paragraph(),
             'autor'=>fake()->name(),
             'anio'=>fake()->date(),

@@ -12,7 +12,7 @@ class Farmacos extends Model
     
     public function bibliografias()
     {
-        return $this->belongsToMany(Bibliografias::class,'farmaco_bibliografia');
+        return $this->belongsToMany(Bibliografias::class,'farmacobibliografia');
     }
 }
 
