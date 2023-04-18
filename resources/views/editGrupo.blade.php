@@ -33,7 +33,7 @@
                     </td>
                     <td>
 
-                        <form id="delete_grupo" action="{{route('destroy.grupo',$grupositem->id)}}" method="post">
+                        <form class="delete_grupo" action="{{route('destroy.grupo',$grupositem->id)}}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="text" value="{{$grupositem->id}}" name="grupo_id" hidden>

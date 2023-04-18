@@ -5,9 +5,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   @yield('style')
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <!-- Bootstrap CSS -->
+<!-- 
+  <link href="bootstrap.css" rel="stylesheet">
+  <link href="bootstrap-switch.css" rel="stylesheet"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -31,9 +35,13 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark  pt-3 "  style="background-color: #e3f2fd;">
+  <div class="cargando">
+    <div class="loader-outer"></div>
+    <div class="loader-inner"></div>
+  </div>
+  <nav class="navbar navbar-dark bg-dark ">
     <div class="container-fluid">
-      <ul class="nav">
+      <ul class="nav justify-content-center">
         <li class="nav-item">
           <a class="nav-link navbar-brand" aria-current="page" href="/"><span class="navbar">INICIO</span></a>
         </li>
@@ -46,6 +54,8 @@
 
 
       </ul>
+
+
 
       <!-- <a class="navbar-brand" href="/"><span class="navbar ">NUTRICIÓN INICIO</span></a>
       <a class="navbar-brand jus " href="get_data">REPORTES</a> -->
@@ -65,8 +75,9 @@
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
   <!-- Sweetalert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- Boostrap select -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
@@ -75,6 +86,7 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>"></script> -->
   <!-- <script src="/js/dataTables.js"></script> -->
   <script src="{{ asset('js/script.js') }}"></script>
+
   <!-- <script src="js/script.js"></script> -->
   <!-- <script>
             

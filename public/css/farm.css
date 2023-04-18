@@ -1,6 +1,9 @@
 
-span.navbar{
+/* span.navbar{
     color: black;
+}
+.center{
+    justify-content: center !important;
 }
 .navbar,.register{
     font-family:  'Ubuntu', sans-serif;
@@ -10,14 +13,14 @@ span.navbar{
 
     margin:  auto;
     
-}
-.bg-primary{
+} */
+/* .bg-primary{
     background-color: rgba(51, 207, 255, 0.5) !important;
-}
-a.nav-link.btn.btn-primary.boton-select {
+} */
+/* a.nav-link.btn.btn-primary.boton-select {
     color: white;
-}
-.container_sombra{
+} */
+/* .container_sombra{
     -webkit-box-shadow: 10px 6px 55px 9px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 6px 55px 9px rgba(0,0,0,0.75);
     box-shadow: 10px 6px 55px 9px rgba(0,0,0,0.75);
@@ -25,12 +28,12 @@ a.nav-link.btn.btn-primary.boton-select {
     background-color: white;
     
     padding-bottom: 20px;
-}
+} */
 
-.container_tabla{
+/* .container_tabla{
     margin-left: 20px;
     margin-right: 20px;
-}
+} */
 label{
     text-decoration-color: black;
     font-family:'Ubuntu', sans-serif ;
@@ -44,18 +47,18 @@ form{
     justify-content: center;
     align-items: center;;
 }
-body{
+/* body{
     background-color: rgb(200, 200, 200);
-}
-.table{
+} */
+/* .table{
     margin-top: 20px;
     border-radius: 2%;
     margin-right: 20px;
-}
-table.dataTable thead{
+} */
+/* table.dataTable thead{
     background-color: blueviolet;
     color: aliceblue;
-}
+} */
 .modal-color{
     background: rgba(126, 9, 235, 0.678);
     background: linear-gradient(0deg, rgba(235,80,9,0.3925945378151261) 0%, rgba(222,70,10,1) 100%);
@@ -71,18 +74,22 @@ table.dataTable thead{
     margin-top: 5px;
     
 }
-.btn-primary{
+/* .btn-primary{
     background-color: rgba(71, 51, 255, 0.603) !important;
-}
-.table{
+} */
+/* .table{
     border-radius: 20px !important;
-}
-.bi::before{
+} */
+/* .bi::before{
     color: blanchedalmond !important;
-}
+} */
 
-a.text-aling-center{
+/* a.text-aling-center{
     position: relative;
     text-align: center;
+} */
+.nav .center {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translatex(-50%) !important;
 }
-

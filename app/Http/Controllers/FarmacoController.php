@@ -21,7 +21,7 @@ class FarmacoController extends Controller
      */
     public function index()
     {
-        $sql = "SELECT `farmacos`.`id`, `farmacos`.`farmaco`, `farmacos`.`mecanismo`, `farmacos`.`url`, `farmacos`.`efecto`, `grupo_farmacos`.`grupo`
+        $sql = "SELECT `farmacos`.`id`, `farmacos`.`farmaco`, `farmacos`.`mecanismo`, `farmacos`.`url`, `farmacos`.`efecto`, `farmacos`.`status`, `grupo_farmacos`.`grupo`
         FROM `farmacos` 
             LEFT JOIN `grupo_farmacos` ON `farmacos`.`id_grupo` = `grupo_farmacos`.`id`";
         $farmacos = DB::select($sql);
@@ -48,47 +48,6 @@ class FarmacoController extends Controller
     public function store(Request $request)
     {
 
-        // $farmaco = new Farmacos();
-        // if ($farmaco->id  == "") {
-        //    /* $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath(), [
-        //         'folder' => 'farmacos',
-        //     ]);
-        //     $url = $uploadedFileUrl->getSecurePath();
-        //     $public_id = $uploadedFileUrl->getPublicId();
-        //     //$url = Cloudinary::getUrl($publicId);*/
-
-        //     $farmaco->farmaco="FARMACO";
-        //     $farmaco->farmaco = $request->farmaco;
-        //     $farmaco->mecanismo = $request->mecanismo;
-        //     // $farmaco->public_id = '$public_id';
-        //     // $farmaco->url = '$url';
-        //     $farmaco->efecto = $request->efecto;
-        //     $id_bibliografia = $request->bibliografia;
-        //     $farmaco->id_grupo = $request->grupo;
-        //     if (isset($request->estatus)) {
-        //         $farmaco->status = $request->input('estatus');
-        //     } else {
-        //         $farmaco->status = 0;
-        //     }
-        //     $farmaco->save();
-        //     $farmaco->bibliografias()->attach($id_bibliografia);
-        //     $itemfarmaco = Farmacos::latest()->first();
-        //     $ultimo = $itemfarmaco;
-        // } else {
-        //     $ultimo = $farmaco->id;
-        //     $interacciones = new Interacciones();
-        //     $interacciones->interacciones = $request->interaccion;
-
-        //     $interacciones->id_farmaco = $ultimo = $farmaco->id;
-        // }
-        // $farmaquito = Farmacos::find($ultimo);
-        // $bibliografia = Bibliografias::all();
-        // $grupo = GrupoFarmaco::all();
-
-
-
-        // // return redirect()->route('crear.farmaco');
-        // return redirect()->route('crear.farmaco', compact('farmaquito', 'bibliografia', 'grupo'));*/
         $farmaco = new Farmacos();
         $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath(), [
             'folder' => 'farmacos2',
@@ -106,22 +65,23 @@ class FarmacoController extends Controller
         $id_bibliografia = $request->bibliografia;
 
         $farmaco->id_grupo = $request->grupo;
-        if (isset($request->estatus)) {
-            $farmaco->status = $request->input('estatus');
-        } else {
-            $farmaco->status = 0;
-        }
+        // if (isset($request->estatus)) {
+        //     $farmaco->status = $request->input('estatus');
+        // } else {
+        //     $farmaco->status = 0;
+        // }
         $farmaco->save();
         $farmaco->bibliografias()->attach($id_bibliografia);
-        
+
         $itemfarmaco = Farmacos::latest()->first();
         $biblioselect = Farmacos::select('bibliografias.*')
-        ->join('farmacobibliografia','farmacos.id','=','farmacobibliografia.farmacos_id')
-        ->join('bibliografias','farmacobibliografia.bibliografias_id' ,'=','bibliografias.id')
-        ->where('farmacos.id',$itemfarmaco);
+            ->join('farmacobibliografia', 'farmacos.id', '=', 'farmacobibliografia.farmacos_id')
+            ->join('bibliografias', 'farmacobibliografia.bibliografias_id', '=', 'bibliografias.id')
+            ->where('farmacos.id', $itemfarmaco)
+            ->get();
         $bibliografia = Bibliografias::all();
         $id = $itemfarmaco;
-        return redirect()->route('edit.farmaco', compact('id','itemfarmaco','bibliografia'))->with('success', 'Agregado con exito!!');
+        return redirect()->route('edit.farmaco', compact('id', 'itemfarmaco', 'bibliografia'))->with('success', 'Agregado con exito!!');
     }
 
     /**
@@ -149,10 +109,25 @@ class FarmacoController extends Controller
         $grupo = GrupoFarmaco::all();
         $interacciones = Interacciones::all();
         $biblioselect = Farmacos::select('bibliografias.*')
-        ->join('farmacobibliografia','farmacos.id','=','farmacobibliografia.farmacos_id')
-        ->join('bibliografias','farmacobibliografia.bibliografias_id' ,'=','bibliografias.id')
-        ->where('farmacos.id',$farmacos);
-        return view('editarFarmaco', compact('farmacos', 'bibliografia', 'grupo', 'interacciones','biblioselect'));
+        ->join('farmacobibliografia', 'farmacos.id', '=', 'farmacobibliografia.farmacos_id')
+        ->join('bibliografias', 'farmacobibliografia.bibliografias_id', '=', 'bibliografias.id')
+        ->where('farmacos.id','=', $farmacos->id)
+        ->get();
+        // dd($biblioselect); 
+        // $biblioselect = DB::table('bibliografias')
+        //       ->join('farmacobibliografia', 'farmacos.id', '=', 'farmacobibliografia.farmacos_id')
+        //       ->join('bibliografias', 'farmacobibliografia.bibliografias_id', '=', 'bibliografias.id')
+        //       ->select('bibliografias.*')
+        //       ->where('farmacos.id','=', $farmacos->id)
+        //       ->get();
+        //      dd($biblioselect);
+        //   $idS=$farmacos->id;
+        //   $sql_B= " SELECT `bibliografias`.* FROM `farmacos` 
+        //   INNER JOIN `farmacobibliografia` ON `farmacos`.`id` = `farmacobibliografia`.`farmacos_id` 
+        //   INNER JOIN `bibliografias` ON `farmacobibliografia`.`bibliografias_id` = `bibliografias`.`id` WHERE `farmacos`.`id` = $idS ";
+        //   $biblioselect=DB::select($sql_B);
+        //   print_r($biblioselect);
+         return view('editarFarmaco', compact('farmacos', 'bibliografia', 'grupo', 'interacciones', 'biblioselect'));
     }
 
     /**
@@ -188,16 +163,39 @@ class FarmacoController extends Controller
         $farmaco->save();
         $farmaco->bibliografias()->sync($id_bibliografia);
         $biblioselect = Farmacos::select('bibliografias.*')
-        ->join('farmacobibliografia','farmacos.id','=','farmacobibliografia.farmacos_id')
-        ->join('bibliografias','farmacobibliografia.bibliografias_id' ,'=','bibliografias.id')
-        ->where('farmacos.id',$id);
+            ->join('farmacobibliografia', 'farmacos.id', '=', 'farmacobibliografia.farmacos_id')
+            ->join('bibliografias', 'farmacobibliografia.bibliografias_id', '=', 'bibliografias.id')
+            ->where('farmacos.id', $id)
+            ->get();
         $bibliografia = Bibliografias::all();
-        return redirect()->route('edit.farmaco', compact('id','biblioselect','bibliografia'))->with('success', 'Actualizado con exito!!');
+        return redirect()->route('edit.farmaco', compact('id', 'biblioselect', 'bibliografia'))->with('success', 'Actualizado con exito!!');
     }
 
+    public function activo(Request $request)
+    {
+        
+
+        // $farmaco_UP = Farmacos::findOrFail($id);
+        // $farmaco_UP->status = $request->estado;
+        // $farmaco_UP->save();
+        // return response()->json(['success' => 'Estado actualizado correctamente.']);
+
+
+         $farmacoUp = Farmacos::findOrFail($request->id)->update(['status'=>$request->estatus]);
+         echo("HOLA");
+         
+         if ($request->estatus==0) {
+             $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
+         }else {
+            $newStatus ='<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
+         }
+         return print("hola");
+         return response()->json(['var'=>''.$newStatus.'']);
+    }
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(string $id)
     {
         //$interacciones = Interacciones::all();

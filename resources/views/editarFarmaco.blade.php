@@ -84,20 +84,21 @@
         </div>
         <div class="py-2 ">
           <label for="" class="form-label">Bibliografia</label>
-          <select class="form-control selectpicker" 
-          data-style="btn btn-secondary" title="Seleccionar Bibliografia" name="bibliografia[]" id="bibliografia" multiple>
+          <!-- <textarea name="" id="" cols="30" rows="10">{{$biblioselect}}</textarea> -->
+          <select class="form-control selectpicker" data-style="btn btn-secondary" title="Seleccionar Bibliografia" name="bibliografia[]" id="bibliografia" multiple>
+            
             @foreach($bibliografia as $biblios)
             @php
             $selected = in_array($biblios->id,$biblioselect->pluck('id')->toArray());
-            print_r($biblios->id);
+            
             @endphp
-            <option value="{{$biblios->id}}" {{ $selected ? 'selected' : '' }} >{{$biblios->titulo}}</option>
+            <option value="{{$biblios->id}}" {{ $selected ? 'selected' : ''   }}>{{$biblios->titulo}}</option>
             @endforeach
 
           </select>
         </div><!-- -->
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button class="btn btn-warning mb-3 " type="submit">ACTUALIZAR FARMACO</button>
+          <button class="btn btn-warning mb-3 " type="submit">ACTUALIZAR</button>
         </div>
 
     </form>
@@ -113,7 +114,6 @@
 </div>
 <div class="row">
   <div>
-    <!-- class="col-sm-6 mb-3 mb-sm-0" -->
     <div class="card">
       <div class="card-header">
         <h5 class="card-title">INTERACCIONES</h5>
@@ -145,7 +145,7 @@
               </td>
               <td>
 
-                <form id="delete_interaccion" action="{{route('destroy.interaccion',$inteFm->id)}}" method="post">
+                <form class="delete_interaccion" action="{{route('destroy.interaccion',$inteFm->id)}}" method="post">
                   @csrf
                   @method('DELETE')
                   <input type="text" value="{{$farmacos->id}}" name="farm_id" hidden>
@@ -210,8 +210,8 @@
 
           <div class="mb-3 col-md-9 pt-3">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="1" id="estatus" name="estatus">
-              <label class="form-check-label" for="flexCheckDefault">Estatus</label>
+              <input class="form-check-input" type="checkbox" value="1" id="estatus" name="estatus" hidden>
+              <!-- <label class="form-check-label" for="flexCheckDefault">Estatus</label> -->
             </div>
 
           </div>
@@ -248,8 +248,8 @@
           </div>
           <div class="mb-3 col-md-9 py-3">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="1" name="estatus">
-              <label class="form-check-label" for="flexCheckDefault">Estatus</label>
+              <input class="form-check-input" type="checkbox" value="1" name="estatus" hidden>
+              <!-- <label class="form-check-label" for="flexCheckDefault">Estatus</label> -->
             </div>
           </div>
 

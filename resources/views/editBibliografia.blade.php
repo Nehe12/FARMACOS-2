@@ -35,7 +35,7 @@
                     </td>
                     <td>
 
-                        <form id="delete_bibliografia" action="{{route('destroy.biblio',$bibliositem->id)}}" method="post">
+                        <form class="delete_bibliografia" action="{{route('destroy.biblio',$bibliositem->id)}}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="text" value="{{$bibliositem->id}}" name="biblio_id" hidden>

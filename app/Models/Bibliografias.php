@@ -13,4 +13,12 @@ class Bibliografias extends Model
     {
         return $this->belongsToMany(Farmacos::class, 'farmacobibliografia');
     }
+     protected $fillable = [
+        'id',
+        'titulo',
+        'descripcion',
+        'autor',
+        'anio',
+        'editorial'
+    ];
 }

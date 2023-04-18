@@ -66,13 +66,15 @@ use Illuminate\Support\Str;
                   <div class="valid-feedback">
                   </div>
                 </div><!-- -->
-                <div class="py-3 col-md-12">
-                  <label for="mecanismo" class="form-label">Agregar Imagen </label>
-                  <input type="file" class="form-control" value="image" aria-label="file example" name="image" required>
+                <div class=" col-md-12">
+                  <label for="image" class="form-label">Agregar Imagen </label>
+                  <input type="file" class="form-control" value="image" aria-label="file example" 
+                  id="image" name="image" accept="image/*" required>
                   <div class="invalid-feedback">
                   </div>
                 </div><!-- -->
               </div>
+
               <div class="col">
 
                 <div class="col-md-12">
@@ -81,28 +83,31 @@ use Illuminate\Support\Str;
                   <div class="valid-feedback">
                   </div>
                 </div><!-- -->
-                <div class="py-2 col-md-12 ">
-                  <label for="grupo" class="form-label">Grupo</label>
-                  <select class="form-control selectpicker" title="Seleccionar Grupo" data-style="btn btn-secondary" multiselect-search="true" name="grupo" id="grupo" required>
-                    <!-- <option selected disabled>Seleccionar Grupo</option> -->
-                    @if(isset($grupo))
-                    @foreach($grupo as $grupos)
-                    <option value="{{$grupos->id}}">{{$grupos->grupo}}</option>
-                    @endforeach
-                    @endif
-                  </select>
-                  <a class=" btn btn-primary boton-select" href="" data-bs-toggle="modal" data-bs-target="#grupoM">CREAR GRUPO</a>
-                </div><!-- -->
-                <div class="col-md-12">
+                <div class="py-2 col-md-12">
+                  <img id="imagenSeleccionada" src="" alt="" style="max-height: 250px">
+                </div>
+                <!-- <div class="col-md-12">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="1" id="estatus" name="estatus">
                     <label class="form-check-label" for="flexCheckDefault">Estatus</label>
                   </div>
                   <div class="valid-feedback">
                   </div>
-                </div><!-- -->
+                </div  -->
 
               </div>
+              <div class="py-2 col-md-12 py-3 ">
+                <label for="grupo" class="form-label">Grupo</label>
+                <select class="form-control selectpicker" title="Seleccionar Grupo" data-style="btn btn-secondary" multiselect-search="true" name="grupo" id="grupo" required>
+                  <!-- <option selected disabled>Seleccionar Grupo</option> -->
+                  @if(isset($grupo))
+                  @foreach($grupo as $grupos)
+                  <option value="{{$grupos->id}}">{{$grupos->grupo}}</option>
+                  @endforeach
+                  @endif
+                </select>
+                <a class=" btn btn-primary boton-select" href="" data-bs-toggle="modal" data-bs-target="#grupoM">CREAR GRUPO</a>
+              </div><!-- -->
               <div class="py-2 col-md-12">
                 <label for="bibliografia" class="form-label">Bibliografia</label>
                 <select class="form-control selectpicker" data-style="btn btn-secondary" name="bibliografia[]" id="bibliografia" title="Seleccionar Bibliografia" multiple required multiselect-search="true">
@@ -114,7 +119,7 @@ use Illuminate\Support\Str;
                   @endif
                 </select>
                 <!-- {{route('create.bibliografia')}} -->
-                <a class=" btn btn-primary boton-select" href="" data-bs-toggle="modal" data-bs-target="#bibliografiaM">CREAR BIBLIOGRAFIA</a>
+                <a class=" btn btn-primary boton-select " href="" data-bs-toggle="modal" data-bs-target="#bibliografiaM">CREAR BIBLIOGRAFIA</a>
               </div><!-- -->
             </div>
             <div class="mb-3 enviar-form">
@@ -179,23 +184,23 @@ use Illuminate\Support\Str;
             <div class="modal-body">
               <form action="{{route('store.bibliografia')}}" method="post">
                 @csrf
-                <div class="mb-3 col-md-9 ">
+                <div class="mb-3  ">
                   <label for="Titulo" class="form-label">Titulo</label>
                   <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo" required>
                 </div>
-                <div class="mb-3 col-md-9">
+                <div class="mb-3 ">
                   <label for="descripcion" class="form-label">Descripcion</label>
                   <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion" required>
                 </div>
-                <div class="mb-3 col-md-9">
+                <div class="mb-3 ">
                   <label for="autor" class="form-label">Autor</label>
                   <input type="text" class="form-control" id="autor" name="autor" placeholder="Autor" required>
                 </div>
-                <div class="mb-3 col-md-9">
+                <div class="mb-3">
                   <label for="año" class="form-label">Año</label>
                   <input type="datetime" class="form-control" id="año" name="año" placeholder="Año" required>
                 </div>
-                <div class="mb-3 col-md-9">
+                <div class="mb-3 ">
                   <label for="editorial" class="form-label">Editorial</label>
                   <input type="text" class="form-control" id="editorial" name="editorial" placeholder="Editorial" required>
                 </div>
@@ -205,7 +210,7 @@ use Illuminate\Support\Str;
                     <label class="form-check-label" for="flexCheckDefault">Estatus</label>
                   </div>
                 </div>
-                <a href="{{route('crear.farmaco')}}" class="btn btn-info">REGRESAR</a>
+                <!-- <a href="{{route('crear.farmaco')}}" class="btn btn-info">REGRESAR</a> -->
                 <input type="submit" value="Guardar" class="btn btn-primary">
               </form>
             </div>
@@ -228,12 +233,12 @@ use Illuminate\Support\Str;
             <div class="modal-body">
               <form action="{{route('store.grupo')}}" method="post">
                 @csrf
-                <div class="mb-3 col-md-9">
+                <div class="mb-3 ">
                   <label for="grupo" class="form-label">Grupo</label>
                   <input type="text" class="form-control" id="grupo" name="grupo" placeholder="Grupo" required>
                 </div>
 
-                <div class="mb-3 col-md-9">
+                <div class="mb-3 ">
                   <label for="subgrupo" class="form-label">Subgrupo</label>
                   <input type="text" class="form-control" id="subgrupo" name="subgrupo" placeholder="Subgrupo" required>
                 </div>
@@ -244,7 +249,7 @@ use Illuminate\Support\Str;
                     <label class="form-check-label" for="flexCheckDefault">Estatus</label>
                   </div>
                 </div>
-                <a href="{{route('crear.farmaco')}}" class="btn btn-info">REGRESAR</a>
+                <!-- <a href="{{route('crear.farmaco')}}" class="btn btn-info">REGRESAR</a> -->
                 <input type="submit" class="btn btn-primary " value="Guardar">
               </form>
             </div>
