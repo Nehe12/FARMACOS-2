@@ -173,6 +173,9 @@ class FarmacoController extends Controller
 
     public function activo(Request $request)
     {
+        // $farmaco_UP=Farmacos::find($request->id);
+        // $farmaco_UP->status=$request->status;
+        // $farmaco_UP->save();
         
 
         // $farmaco_UP = Farmacos::findOrFail($id);
@@ -181,16 +184,16 @@ class FarmacoController extends Controller
         // return response()->json(['success' => 'Estado actualizado correctamente.']);
 
 
-         $farmacoUp = Farmacos::findOrFail($request->id)->update(['status'=>$request->estatus]);
-         echo("HOLA");
+          $farmacoUp = Farmacos::findOrFail($request->id)->update(['status'=>$request->estatus]);
+          echo("HOLA");
          
-         if ($request->estatus==0) {
-             $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
-         }else {
-            $newStatus ='<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
-         }
-         return print("hola");
-         return response()->json(['var'=>''.$newStatus.'']);
+          if ($request->estatus==1) {
+              $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
+          }else {
+             $newStatus ='<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
+          }
+          return print("hola");
+          return response()->json(['var'=>''.$newStatus.'']);
     }
     /**
      * Remove the specified resource from storage.

@@ -55,16 +55,13 @@
                             <td>
                                 <div class="form-check form-switch">
 
-                                    <label class="form-check-label mi-switch" for="flexSwitchCheckDefault">
-                                        <input data-id="{{$far->id}}" class="form-check-input" type="checkbox" role="switch" data-onstyle="success"
-                                         data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $far->status ? 'checked' : ''}}
-                                          id="flexSwitchCheckDefault">
+                                    <label class="form-check-label mi-switch" for="checkbox">
+                                        <input id="checkbox" data-id="{{$far->id}}" class="form-check-input mi-switch" type="checkbox" role="switch" 
+                                        data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" 
+                                        data-off="InActive" {{ $far->status ? 'checked' : ''}} >
                                     </label>
                                 </div>
-                                <!-- <label class=" switch">
-                                    <input data-id="{{$far->id}}" class="mi_checkbox" type="checkbox" role="switch" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $far->status ? 'checked' : ''}}>
-                                    <span class="slider round"></span>
-                                </label> -->
+
                             </td>
                             <td>
                                 <div class="text-start">
@@ -95,7 +92,8 @@
                             <th>EFECTO</th>
                             <!-- <th>BIBLIOGRAFIA</th> -->
                             <th>GRUPO</th>
-                            <th>VER</th>
+                            <th>ESTADO</th>
+                            <th>ACCIÓN</th>
                             <th>EDITAR</th>
                             <th>ELIMINAR</th>
                         </tr>

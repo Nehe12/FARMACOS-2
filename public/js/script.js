@@ -141,7 +141,7 @@ $('.delete_bibliografia').click(function (event) {
 /* Tabla farmaco */
 $(document).ready(function () {
   $('#farmaco').DataTable({
-    "lengthMenu": [[10, 20,30, 50, 100, -1], [10, 20,30, 50, 100, "All"]]
+    "lengthMenu": [[10, 20, 30, 50, 100, -1], [10, 20, 30, 50, 100, "All"]]
   });
 });
 /* Tabla interacciones*/
@@ -189,34 +189,52 @@ $(document).ready(function () {
 
 
 
-$(document).ready(function () {
+ $(document).ready(function () {
 
-  $('.form-check-input').change(function () {
-    var estatus = $(this).prop('checked') == true ? 1 : 0;
-    var id = $(this).data('id');
-    console.log(estatus);
-    
-    $.ajax({
-      type: "GET",
-      dataType: "json",
-      url:'/updateA',
-      //  url: '{{route("activar.farmaco")}}',
-      
-      data: {
-        'estatus': estatus,
-        'id': id,
-        
-        // "_token": $("meta[name='csrf-token']").attr("content"),
-      },
-      success: function (data) {
-        $('#resp' + id).html(data.var);
-        console.log(data.var);
-        console.log("ajh");
-      }
-    })
-    
-  })
-});
+   $('.mi-switch').change(function () {
+     var estatus = $(this).prop('checked') == true ? 1 : 0;
+     var id = $(this).data('id');
+     console.log(estatus);
+       var url="{{route('activar.farmaco')}}"
+     $.ajax({
+       method: "GET",
+       dataType: "json",
+        // url:'/updateA',
+        url: url,
+
+       data: {
+         'estatus': estatus,
+         'id': id,
+
+          // "_token": $("meta[name='csrf-token']").attr("content"),
+       },
+       success: function (data) {
+         $('#resp' + id).html(data.var);
+         console.log(data.var);
+         console.log("ajh");
+       }
+     })
+
+   })
+ });
+// $(function () {
+//   $('.mi-switch').change(function () {
+//     var status = $(this).prop('checked') == true ? 1 : 0;
+//     var id = $(this).prop('id');
+//     $.ajax({
+//       type: "GET",
+//       dataType: "json",
+//       url: '/updateA',
+//       data:{
+//         'status':status,
+//         'id':id,
+//         success:function (data) {
+//           console.log('Success');
+//         }
+//       },
+//     });
+//   });
+// });
 /*Vista previa imagen */
 $(document).ready(function (e) {
   $('#image').change(function () {

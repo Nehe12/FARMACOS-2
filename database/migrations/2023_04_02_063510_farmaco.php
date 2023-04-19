@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('url');
             $table->text('efecto');
             
-            $table->unsignedBigInteger('id_grupo');
-            $table->foreign('id_grupo')->references('id')->on('grupo_farmacos');
+            $table->unsignedBigInteger('id_grupo')->nullable();
+            $table->foreign('id_grupo')->references('id')->on('grupo_farmacos')->onUpdate('cascade')->onDelete('set null');
             $table->integer('status')->default(1);
             $table->timestamps();
         });
