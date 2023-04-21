@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Google\Service\Storage as ServiceStorage;
+//  use Google\Service\Storage;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Filesystem;
 
 
 
@@ -47,6 +51,41 @@ class FarmacoController extends Controller
      */
     public function store(Request $request)
     {
+        $farmaco = new Farmacos();
+        $path = Storage::disk('google')->put('farmacos_img', $request->file('image'));
+        $url = Storage::disk('google')->url($path);
+        // $image = $request->file('image');
+        // $path  = $image->store('farmacoImg','google');
+        // $url = Storage::disk('google')->url($path);
+        $farmaco->farmaco = $request->farmaco;
+        $farmaco->mecanismo = $request->mecanismo;
+        $farmaco->public_id = '$public_id';
+        $farmaco->url = $url;
+        $farmaco->efecto = $request->efecto;
+        $id_bibliografia = $request->bibliografia;
+
+        $farmaco->id_grupo = $request->grupo;
+        // if (isset($request->estatus)) {
+        //     $farmaco->status = $request->input('estatus');
+        // } else {
+        //     $farmaco->status = 0;
+        // }
+        $farmaco->save();
+        $farmaco->bibliografias()->attach($id_bibliografia);
+
+        $itemfarmaco = Farmacos::latest()->first();
+        $biblioselect = Farmacos::select('bibliografias.*')
+            ->join('farmacobibliografia', 'farmacos.id', '=', 'farmacobibliografia.farmacos_id')
+            ->join('bibliografias', 'farmacobibliografia.bibliografias_id', '=', 'bibliografias.id')
+            ->where('farmacos.id', $itemfarmaco)
+            ->get();
+        $bibliografia = Bibliografias::all();
+        $id = $itemfarmaco;
+        return redirect()->route('edit.farmaco', compact('id', 'itemfarmaco', 'bibliografia'))->with('success', 'Agregado con exito!!');
+    }
+    // Guardar usando Cloudinary
+    /*public function store(Request $request)
+    {
 
         $farmaco = new Farmacos();
         $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath(), [
@@ -82,7 +121,7 @@ class FarmacoController extends Controller
         $bibliografia = Bibliografias::all();
         $id = $itemfarmaco;
         return redirect()->route('edit.farmaco', compact('id', 'itemfarmaco', 'bibliografia'))->with('success', 'Agregado con exito!!');
-    }
+    }*/
 
     /**
      * Display the specified resource.
@@ -109,10 +148,10 @@ class FarmacoController extends Controller
         $grupo = GrupoFarmaco::all();
         $interacciones = Interacciones::all();
         $biblioselect = Farmacos::select('bibliografias.*')
-        ->join('farmacobibliografia', 'farmacos.id', '=', 'farmacobibliografia.farmacos_id')
-        ->join('bibliografias', 'farmacobibliografia.bibliografias_id', '=', 'bibliografias.id')
-        ->where('farmacos.id','=', $farmacos->id)
-        ->get();
+            ->join('farmacobibliografia', 'farmacos.id', '=', 'farmacobibliografia.farmacos_id')
+            ->join('bibliografias', 'farmacobibliografia.bibliografias_id', '=', 'bibliografias.id')
+            ->where('farmacos.id', '=', $farmacos->id)
+            ->get();
         // dd($biblioselect); 
         // $biblioselect = DB::table('bibliografias')
         //       ->join('farmacobibliografia', 'farmacos.id', '=', 'farmacobibliografia.farmacos_id')
@@ -127,13 +166,50 @@ class FarmacoController extends Controller
         //   INNER JOIN `bibliografias` ON `farmacobibliografia`.`bibliografias_id` = `bibliografias`.`id` WHERE `farmacos`.`id` = $idS ";
         //   $biblioselect=DB::select($sql_B);
         //   print_r($biblioselect);
-         return view('editarFarmaco', compact('farmacos', 'bibliografia', 'grupo', 'interacciones', 'biblioselect'));
+        return view('editarFarmaco', compact('farmacos', 'bibliografia', 'grupo', 'interacciones', 'biblioselect'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
+    {
+        $farmaco = Farmacos::find($id);
+        $id = $farmaco->id;
+        $url = $farmaco->url;
+        
+        if ($request->hasFile('image')) {
+            // $get_url = Storage::get($url);
+            Storage::delete($url);
+            // dd(Storage::delete('farmacos_img',$url));
+            $path = Storage::disk('google')->put('farmacos_img', $request->file('image'));
+            $url = Storage::disk('google')->url($path);
+            // dd($url);
+        }
+        $farmaco->farmaco = $request->farmaco;
+        $farmaco->mecanismo = $request->mecanismo;
+        $farmaco->public_id = '$public_id';
+        $farmaco->url = $url;
+        $farmaco->efecto = $request->efecto;
+        $id_bibliografia = $request->bibliografia;
+        $farmaco->id_grupo = $request->grupo;
+        if (isset($request->estatus)) {
+            $farmaco->status = $request->input('estatus');
+        } else {
+            $farmaco->status = 0;
+        }
+        $farmaco->save();
+        $farmaco->bibliografias()->sync($id_bibliografia);
+        $biblioselect = Farmacos::select('bibliografias.*')
+            ->join('farmacobibliografia', 'farmacos.id', '=', 'farmacobibliografia.farmacos_id')
+            ->join('bibliografias', 'farmacobibliografia.bibliografias_id', '=', 'bibliografias.id')
+            ->where('farmacos.id', $id)
+            ->get();
+        $bibliografia = Bibliografias::all();
+        return redirect()->route('edit.farmaco', compact('id', 'biblioselect', 'bibliografia'))->with('success', 'Actualizado con exito!!');
+    }
+    // Update con Cloudinary
+    /*public function update(Request $request, string $id)
     {
         $farmaco = Farmacos::find($id);
         $id = $farmaco->id;
@@ -169,14 +245,15 @@ class FarmacoController extends Controller
             ->get();
         $bibliografia = Bibliografias::all();
         return redirect()->route('edit.farmaco', compact('id', 'biblioselect', 'bibliografia'))->with('success', 'Actualizado con exito!!');
-    }
+    }*/
 
     public function activo(Request $request)
     {
-        // $farmaco_UP=Farmacos::find($request->id);
-        // $farmaco_UP->status=$request->status;
-        // $farmaco_UP->save();
-        
+        //  $farmaco_UP=Farmacos::find($request->id);
+
+        //  $farmaco_UP->status=$request->status;
+        //  $farmaco_UP->save();
+
 
         // $farmaco_UP = Farmacos::findOrFail($id);
         // $farmaco_UP->status = $request->estado;
@@ -184,17 +261,38 @@ class FarmacoController extends Controller
         // return response()->json(['success' => 'Estado actualizado correctamente.']);
 
 
-          $farmacoUp = Farmacos::findOrFail($request->id)->update(['status'=>$request->estatus]);
-          echo("HOLA");
-         
-          if ($request->estatus==1) {
-              $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
-          }else {
-             $newStatus ='<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
-          }
-          return print("hola");
-          return response()->json(['var'=>''.$newStatus.'']);
+        //   $farmacoUp = Farmacos::findOrFail($request->id)->update(['status'=>$request->estatus]);
+        //   dd($farmacoUp);
+
+        //   if ($request->estatus==1) {
+        //       $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
+        //   }else {
+        //      $newStatus ='<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
+        //   }
+        //   return print("hola");
+        //   return response()->json(['var'=>''.$newStatus.'']);
+        $farmaco = Farmacos::find($request->id);
+        if (isset($request->estatus)) {
+            $farmaco->status = $request->estatus;
+            
+        } else {
+            $farmaco->status = 0;
+            
+        }
+        
+        
+        $farmaco->save();
+        // $farmacoUp = Farmacos::findOrFail($request->id)->update(['status'=>$request->estatus]);
+
+        if ($request->estatus == 0) {
+            $newStatus = '<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
+        } else {
+            $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
+        }
+
+        return response()->json(['var' => '' . $newStatus . '']);
     }
+
     /**
      * Remove the specified resource from storage.
      */

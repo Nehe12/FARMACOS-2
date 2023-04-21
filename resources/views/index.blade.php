@@ -45,22 +45,29 @@
                             <td>{{$far->efecto}}</td>
                             <td>{{$far->grupo}}</td>
                             <td id="resp{{$far->id}}">
-
-                                @if($far->status == 1 || $far->status > 1 )
+                                <br>
+                                @if($far->status == 1 )
                                 <button type="button" class="btn btn-sm btn-success">Activo</button>
                                 @else
                                 <button type="button" class="btn btn-sm btn-danger">Inactivo</button>
                                 @endif
                             </td>
                             <td>
+                                <br>
                                 <div class="form-check form-switch">
-
-                                    <label class="form-check-label mi-switch" for="checkbox">
-                                        <input id="checkbox" data-id="{{$far->id}}" class="form-check-input mi-switch" type="checkbox" role="switch" 
-                                        data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" 
-                                        data-off="InActive" {{ $far->status ? 'checked' : ''}} >
+                                    <label class="switch form-check-label">
+                                        <input data-id="{{ $far->id }}" class="form-check-input mi_checkbox" type="checkbox" data-onstyle="success" role="switch" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $far->status ? 'checked' : '' }}>
+                                        <span class="slider round"></span>
                                     </label>
                                 </div>
+                                <!-- <div class="form-check form-switch">
+
+                                    <label class="form-check-label mi-switch" for="checkbox">
+                                        <input id="checkbox" data-id="{{$far->id}}" class="form-check-input mi-switch" type="checkbox" 
+                                        role="switch" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" 
+                                        data-off="InActive" {{ $far->status ? 'checked' : ''}}>
+                                    </label>
+                                </div> -->
 
                             </td>
                             <td>
@@ -105,6 +112,42 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('.mi_checkbox').change(function() {
+            //Verifico el estado del checkbox, si esta seleccionado sera igual a 1 de lo contrario sera igual a 0
+            var estatus = $(this).prop('checked') == true ? 1 : 0;
+            var id = $(this).data('id');
+            console.log(estatus);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+
+                method: "GET",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                dataType: "json",
+                //url: '/StatusNoticia',
+                url: '{{ route("activar.farmaco") }}',
+                data: {
+                    'estatus': estatus,
+                    'id': id,
+                    //  "_token": $("meta[name='csrf-token']").attr("content"),
+                },
+                success: function(data) {
+                    $('#resp' + id).html(data.var);
+                    console.log(data.var)
+
+                }
+            });
+        })
+
+    });
+</script>
 <!-- Modal -->
 <div class="modal fade " id="mostrarInter" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable ">

@@ -11,13 +11,13 @@
     <h4 class="register card-title">Editar {{$farmacos->farmaco}}</h4>
   </div>
   <div class="card-body py-3">
-    <div class="col-sm-12 ">
+     <div class="col-sm-12 ">
       @if($mensaje = Session::get('msg'))
       <div class="alert alert-success" role="alert">
         {{$mensaje}}
       </div>
       @endif
-    </div>
+    </div> 
     <form class="" action="{{route('update.farmaco',$farmacos->id)}}" method="post" enctype="multipart/form-data">
       @csrf
       @method("PUT")
@@ -86,11 +86,11 @@
           <label for="" class="form-label">Bibliografia</label>
           <!-- <textarea name="" id="" cols="30" rows="10">{{$biblioselect}}</textarea> -->
           <select class="form-control selectpicker" data-style="btn btn-secondary" title="Seleccionar Bibliografia" name="bibliografia[]" id="bibliografia" multiple>
-            
+
             @foreach($bibliografia as $biblios)
             @php
             $selected = in_array($biblios->id,$biblioselect->pluck('id')->toArray());
-            
+
             @endphp
             <option value="{{$biblios->id}}" {{ $selected ? 'selected' : ''   }}>{{$biblios->titulo}}</option>
             @endforeach
@@ -255,6 +255,7 @@
 
 
           <input type="submit" class="btn btn-primary " value="Guardar">
+          
 
         </form>
       </div>
@@ -262,5 +263,22 @@
     </div>
   </div>
 </div>
-
+<!-- <script>
+  @if($mensaje = Session :: get('msg'))
+  Swal.fire(
+    'Good job!',
+    '{{ $mensaje }}',
+    'success'
+  )
+  @endif
+</script>
+<script>
+  @if($message = session('succes_message'))
+  Swal.fire(
+    'Good job!',
+    '{{ $message }}',
+    'success'
+  )
+  @endif
+</script> -->
 @endsection

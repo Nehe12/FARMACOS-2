@@ -11,6 +11,8 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "league/flysystem-google-cloud-storage": "^3.13",
+        "masbug/flysystem-google-drive-ext": "^2.2",
         "realrashid/sweet-alert": "^6.0"
     },
     "require-dev": {

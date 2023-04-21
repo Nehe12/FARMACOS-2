@@ -189,34 +189,54 @@ $(document).ready(function () {
 
 
 
- $(document).ready(function () {
+//  $(document).ready(function () {
 
-   $('.mi-switch').change(function () {
-     var estatus = $(this).prop('checked') == true ? 1 : 0;
-     var id = $(this).data('id');
-     console.log(estatus);
-       var url="{{route('activar.farmaco')}}"
-     $.ajax({
-       method: "GET",
-       dataType: "json",
-        // url:'/updateA',
-        url: url,
+//    $('.mi-switch').change(function () {
+//      var estatus = $(this).prop('checked') == true ? 1 : 0;
+//      var id = $(this).data('id');
+//      console.log(estatus);
+//       //  var url="{{route('activar.farmaco')}}";
 
-       data: {
-         'estatus': estatus,
-         'id': id,
+//      $.ajax({
+//        method: "GET",
+//        dataType: "json",
+//         // url:'/updateA',
+//         url: '{{route("activar.farmaco")}}',
 
-          // "_token": $("meta[name='csrf-token']").attr("content"),
-       },
-       success: function (data) {
-         $('#resp' + id).html(data.var);
-         console.log(data.var);
-         console.log("ajh");
-       }
-     })
+//        data: {
+//          'estatus': estatus,
+//          'id': id,
 
-   })
- });
+//           "_token": $("meta[name='csrf-token']").attr("content"),
+//        },
+//        success: function (data) {
+//          $('#resp' + id).html(data.var);
+//          console.log(data.var);
+//          console.log("ajh");
+//        }
+//      })
+
+//    })
+//  });
+// $(document).ready(function () {
+//   $('.mi-switch').change(function () {
+//     var status = $(this).prop('checked') == true ? 1 : 0;
+//     var id = $(this).data('id');
+//     console.log(status);
+//     $.ajax({
+//       type: "GET",
+//       dataType: "json",
+//       url: '{{route("activar.farmaco")}}',
+//       data: { 'estatus': status, 'id': id },
+//       success: function (data) {
+//         $('#resp' + id).html(data.var);
+//         console.log(data.var)
+
+//       }
+//     })
+//   })
+// });
+
 // $(function () {
 //   $('.mi-switch').change(function () {
 //     var status = $(this).prop('checked') == true ? 1 : 0;
