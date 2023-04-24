@@ -39,16 +39,16 @@
     <div class="loader-outer"></div>
     <div class="loader-inner"></div>
   </div>
-  <nav class="navbar navbar-dark bg-dark ">
-    <div class="container-fluid">
+  <nav class="bg-dark navbar-dark p-3  ">
+    
       <ul class="nav justify-content-center">
-        <li class="nav-item">
+        <li class="nav-item pe-3">
           <a class="nav-link navbar-brand" aria-current="page" href="/"><span class="navbar">INICIO</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item pe-3">
           <a class="nav-link navbar-brand" href="{{route('show.biblios')}}"><span class="navbar">BIBLIOGRAFIAS</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item pe-3">
           <a class="nav-link navbar-brand" href="{{route('show.grupos')}}"><span class="navbar">GRUPOS</span></a>
         </li>
 
@@ -61,7 +61,7 @@
       <a class="navbar-brand jus " href="get_data">REPORTES</a> -->
       <!--  <a class="navbar-brand" href="#">NUTRICIÓN</a> -->
       <!-- <a class="navbar-brand" href="#">NUTRICIÓN</a>  -->
-    </div>
+    
 
   </nav>
   <div class="container pt-3 ">
