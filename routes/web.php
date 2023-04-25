@@ -30,7 +30,7 @@ Route::controller(FarmacoController::class)->group(function () {
     Route::put('/update/{id}', 'update')->name('update.farmaco');
     // Route::put('/actualizar-estado/{id}', 'FarmacoController@activo')->name('activar.farmaco');
    
-    Route::get('/eliminar/{id}', "show")->name('show.farmaco');
+    // Route::get('/eliminar/{id}', "show")->name('show.farmaco');
     Route::delete('/destroy/{id}', "destroy")->name('destroy.farmaco');
     Route::get('/mostrar/{id}', 'mostrar')->name('ver.farmaco');
     Route::put('activar/{id}','activo')->name('activar.farmaco');

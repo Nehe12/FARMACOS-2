@@ -1,7 +1,7 @@
 @extends('header')
 @section('content')
 
-<a class="btn btn-primary " href="{{ route('crear.farmaco') }}">CREAR NUEVO FÁRMACO</a>
+<a class="btn btn-primary btnc" href="{{ route('crear.farmaco') }}">CREAR NUEVO FÁRMACO</a>
 
 <div class="row">
     <div class="col pt-2">
@@ -25,6 +25,7 @@
                 <table id="farmaco" class="table table-striped responsive" style="width:100%" style="white-space: nowrap; overflow-x: auto;">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>FARMACO</th>
                             <th>MECANISMO</th>
                             <th>EFECTO</th>
@@ -40,6 +41,7 @@
                         @if(isset($farmacos))
                         @foreach($farmacos as $far)
                         <tr>
+                            <td>{{$far->id}}</td>
                             <td>{{$far->farmaco}}</td>
                             <td>{{$far->mecanismo}}</td>
                             <td>{{$far->efecto}}</td>
@@ -55,18 +57,17 @@
                             <td>
                                 <form action="{{ route('activar.farmaco', $far->id) }}" method="POST">
                                     @csrf
-                                    
+
                                     <input type="hidden" name="_method" value="PUT">
-                                    <input type="hidden" name="estatus" value="{{ $far->status }}">
+                                    <input type="hidden" name="estatus" value="{{ $far->status }}   ">
                                     <div class="form-check form-switch">
-                                    <label class="switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" 
-                                            onchange="this.form.submit()" {{ $far->status ? 'checked' : '' }}>
-                                        <span class="slider round"></span>
-                                    </label>
+                                        <label class="switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" onchange="this.form.submit()" {{ $far->status ? 'checked' : '' }}>
+                                            <span class="slider round"></span>
+                                        </label>
                                     </div>
                                 </form>
-                                
+
 
                             </td>
                             <td>
@@ -77,15 +78,14 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="text-start">
-                                    <!-- {{route('show.farmaco',$far->id)}} -->
-                                    <a href="{{route('show.farmaco',$far->id)}}" class="btn btn-danger btnDelete btn-sm" data-bs-target="#staticBackdrop">
-                                        <i class="bi bi-trash3-fill"></i>
-                                    </a>
-                                    <!-- <button type="button" class="btn btn-danger btnDelete btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <i class="bi bi-trash3-fill"></i>
-                        </button> -->
-                                </div>
+                               
+                                <form class="delete_farmaco" action="{{route('destroy.farmaco',$far->id)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="text" value="{{$far->id}}" name="far_id" hidden>
+                                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
+
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -93,6 +93,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th>ID</th>
                             <th>FARMACO</th>
                             <th>MECANISMO</th>
                             <th>EFECTO</th>

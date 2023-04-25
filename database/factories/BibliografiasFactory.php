@@ -22,7 +22,7 @@ class BibliografiasFactory extends Factory
             'autor'=>fake()->name(),
             'anio'=>fake()->date(),
             'editorial'=>fake()->sentence(),
-            'estatus'=>fake()->randomDigit(),
+            'estatus'=>1
         ];
     }
 }

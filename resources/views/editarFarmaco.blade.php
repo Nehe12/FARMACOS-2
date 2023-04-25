@@ -11,13 +11,13 @@
     <h4 class="register card-title">Editar {{$farmacos->farmaco}}</h4>
   </div>
   <div class="card-body py-3">
-     <div class="col-sm-12 ">
+    <div class="col-sm-12 ">
       @if($mensaje = Session::get('msg'))
       <div class="alert alert-success" role="alert">
         {{$mensaje}}
       </div>
       @endif
-    </div> 
+    </div>
     <form class="" action="{{route('update.farmaco',$farmacos->id)}}" method="post" enctype="multipart/form-data">
       @csrf
       @method("PUT")
@@ -25,7 +25,7 @@
       <div class="row">
         <div class="col">
           <div class="col-md-9">
-            <label for="farmaco" class="form-label">Farmaco </label>
+            <label for="farmaco" class="form-label">Fármaco </label>
             <input type="text" class="form-control " name="farmaco" value="{{$farmacos->farmaco}}">
             <div class="invalid-feedback">
             </div>
@@ -36,20 +36,6 @@
             <div class="valid-feedback">
             </div>
           </div><!-- -->
-          <div class="py-3 col-md-9">
-            <label for="mecanismo" class="form-label">Imagen Actual </label><br>
-            <img src="{{$farmacos->url}}" alt="" name="" class="rounded float-start img-fluid img-thumbnail">
-          </div><!-- -->
-
-
-        </div>
-        <div class="col">
-          <div class="py-3 col-md-9">
-            <label for="mecanismo" class="form-label">Agregar Imagen </label>
-            <input type="file" class="form-control" value="image" aria-label="file example" name="image">
-            <div class="invalid-feedback">
-            </div>
-          </div><!-- -->
           <div class="col-md-9">
             <label for="efecto" class="form-label">Efecto </label>
             <input type="text" class="form-control " id="efecto" name="efecto" value="{{$farmacos->efecto}}" required>
@@ -58,32 +44,49 @@
           </div><!-- -->
 
 
-          <div class="py-2 col-md-9">
-            <label for="" class="form-label">Grupo</label>
-            <select class="form-control selectpicker" data-style="btn btn-secondary" name="grupo" id="grupo">
-              @if(isset($grupo))
-              @foreach($grupo as $grupos)
-              @if($farmacos->id_grupo == $grupos->id)
-              <option value="{{$grupos->id}}">{{$grupos->grupo}}</option>
-              @endif
-              @endforeach
-              @foreach($grupo as $itemGrup)
-              <option value="{{$itemGrup->id}}">{{$itemGrup->grupo}}</option>
-              @endforeach
-              @endif
-            </select>
+
+        </div>
+        <div class="col">
+          <div class="py-3 col-md-9">
+            <label for="mecanismo" class="form-label">Imagen Actual </label><br>
+            <img src="{{$farmacos->url}}" alt="" name="" class="rounded float-start img-fluid img-thumbnail">
           </div><!-- -->
-          <div class="col-md-9">
-            <label for="estatus">Estatus</label>
-            <input type="number" class="form-control " name="estatus" id="estatus" required value="{{$farmacos->status}}">
-            <div class="valid-feedback">
+          <div class="py-3 col-md-9">
+            <label for="mecanismo" class="form-label">Agregar Imagen </label>
+            <input type="file" class="form-control" value="image" aria-label="file example" name="image">
+            <div class="invalid-feedback">
             </div>
           </div><!-- -->
 
 
+
+
+          <!--<div class="col-md-9">
+            <label for="estatus">Estatus</label>
+            <input type="number" class="form-control " name="estatus" id="estatus" required value="{{$farmacos->status}}">
+            <div class="valid-feedback">
+            </div>
+          </div> -->
+
+
         </div>
         <div class="py-2 ">
-          <label for="" class="form-label">Bibliografia</label>
+          <label for="" class="form-label">Grupo</label>
+          <select class="form-control selectpicker" data-style="btn btn-secondary" name="grupo" id="grupo">
+            @if(isset($grupo))
+            @foreach($grupo as $grupos)
+            @if($farmacos->id_grupo == $grupos->id)
+            <option value="{{$grupos->id}}">{{$grupos->grupo}}</option>
+            @endif
+            @endforeach
+            @foreach($grupo as $itemGrup)
+            <option value="{{$itemGrup->id}}">{{$itemGrup->grupo}}</option>
+            @endforeach
+            @endif
+          </select>
+        </div><!-- -->
+        <div class="py-2 ">
+          <label for="" class="form-label">Bibliografía</label>
           <!-- <textarea name="" id="" cols="30" rows="10">{{$biblioselect}}</textarea> -->
           <select class="form-control selectpicker" data-style="btn btn-secondary" title="Seleccionar Bibliografia" name="bibliografia[]" id="bibliografia" multiple>
 
@@ -188,7 +191,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Interacción</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">AGREGAR INTERACCIÓN</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -230,7 +233,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">ACTUALIZAR INTERACCION</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">ACTUALIZAR INTERACCIÓN</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -255,7 +258,7 @@
 
 
           <input type="submit" class="btn btn-primary " value="Guardar">
-          
+
 
         </form>
       </div>

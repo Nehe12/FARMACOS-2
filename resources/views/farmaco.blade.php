@@ -48,7 +48,7 @@ use Illuminate\Support\Str;
         <div class="row">
           <div class="col">
             <div class="col-md-12">
-              <label for="farmaco" class="form-label">Farmaco </label>
+              <label for="farmaco" class="form-label">Fármaco </label>
               <input type="text" class="form-control is-valid" name="farmaco" required>
               <div class="valid-feedback">
               </div>
@@ -101,7 +101,7 @@ use Illuminate\Support\Str;
             <a class=" btn btn-primary boton-select" href="" data-bs-toggle="modal" data-bs-target="#grupoM">CREAR GRUPO</a>
           </div><!-- -->
           <div class="py-2 col-md-12">
-            <label for="bibliografia" class="form-label">Bibliografia</label>
+            <label for="bibliografia" class="form-label">Bibliografía</label>
             <select class="form-control selectpicker" data-style="btn btn-secondary" name="bibliografia[]" id="bibliografia" title="Seleccionar Bibliografia" multiple required multiselect-search="true">
               <!-- <option selected disabled value="">Seleccionar Bibliografia</option> -->
               @if(isset($bibliografia))
@@ -164,7 +164,7 @@ use Illuminate\Support\Str;
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">CREAR BIBLIOGRAFIA</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">CREAR BIBLIOGRAFÍA</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -175,7 +175,7 @@ use Illuminate\Support\Str;
                 <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo" required>
               </div>
               <div class="mb-3 ">
-                <label for="descripcion" class="form-label">Descripcion</label>
+                <label for="descripcion" class="form-label">Descripción</label>
                 <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion" required>
               </div>
               <div class="mb-3 ">

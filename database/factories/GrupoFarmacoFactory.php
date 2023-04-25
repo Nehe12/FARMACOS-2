@@ -19,7 +19,7 @@ class GrupoFarmacoFactory extends Factory
         return [
             'grupo'=>fake()->sentence(),
             'subgrupo'=>fake()->paragraph(),
-            'estatus'=>fake()->randomDigit(),
+            'estatus'=>1
         ];
     }
 }

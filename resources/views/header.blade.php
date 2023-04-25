@@ -46,7 +46,7 @@
           <a class="nav-link navbar-brand" aria-current="page" href="/"><span class="navbar">INICIO</span></a>
         </li>
         <li class="nav-item pe-3">
-          <a class="nav-link navbar-brand" href="{{route('show.biblios')}}"><span class="navbar">BIBLIOGRAFIAS</span></a>
+          <a class="nav-link navbar-brand" href="{{route('show.biblios')}}"><span class="navbar">BIBLIOGRAFÍAS</span></a>
         </li>
         <li class="nav-item pe-3">
           <a class="nav-link navbar-brand" href="{{route('show.grupos')}}"><span class="navbar">GRUPOS</span></a>

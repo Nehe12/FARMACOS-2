@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+use App\Models\GrupoFarmaco;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +24,7 @@ class FarmacosFactory extends Factory
             'url'=>fake()->url(),
             'efecto'=>fake()->sentence(),
             'id_grupo'=>\App\Models\GrupoFarmaco::factory()->create()->id,
-            'status'=>fake()->randomDigit(),
+            'status'=>1
         ];
     }
 }

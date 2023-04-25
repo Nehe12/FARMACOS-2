@@ -63,6 +63,31 @@ $(document).ready(function () {
     $('#subgrupoU').val(subgrupo);
   })
 })
+/*Delete Farmaco */
+$('.delete_farmaco').click(function (event) {
+  event.preventDefault();
+  // const form = $(this).parents('form');
+  console.log("Hola");
+  Swal.fire({
+    title: 'Estas seguro de eliminar este fármaco',
+    text: "No prodas revertirlo",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      this.submit();
+      // Swal.fire(
+      //   'Deleted!',
+      //   'Your file has been deleted.',
+      //   'success'
+      // )
+    }
+  });
+});
 /*Delete Interaccion */
 $('.delete_interaccion').click(function (event) {
   event.preventDefault();
@@ -151,9 +176,7 @@ $(document).ready(function () {
       method:'PUT',
       data:form.serialize(),
       dataType:'json',
-      success:function (response){
-        var estatus=response.
-      }
+      
     })
   })
 });
@@ -177,97 +200,7 @@ $(document).ready(function () {
   });
 });
 
-/*Checkbox */
-// $(function(){
-//   $('.mi-switch').change(function (event,state) {
-//     var id=$(this).data('id');
-//     // var estatus = $(this).prop('checked') == true ? 1 : 0;
-//     // console.log(estatus);
 
-//     $.ajax({
-//       url:"{{route('activar.farmaco')}}/" + id,
-//       type:"PUT",
-//       data:{
-//         estado: state ? 1 : 0
-//       },
-//       success:function(data){
-//         toastr.success(data.success);
-//       }
-//     });
-//     });
-//  });  
-
-
-
-
-
-
-//  $(document).ready(function () {
-
-//    $('.mi-switch').change(function () {
-//      var estatus = $(this).prop('checked') == true ? 1 : 0;
-//      var id = $(this).data('id');
-//      console.log(estatus);
-//       //  var url="{{route('activar.farmaco')}}";
-
-//      $.ajax({
-//        method: "GET",
-//        dataType: "json",
-//         // url:'/updateA',
-//         url: '{{route("activar.farmaco")}}',
-
-//        data: {
-//          'estatus': estatus,
-//          'id': id,
-
-//           "_token": $("meta[name='csrf-token']").attr("content"),
-//        },
-//        success: function (data) {
-//          $('#resp' + id).html(data.var);
-//          console.log(data.var);
-//          console.log("ajh");
-//        }
-//      })
-
-//    })
-//  });
-// $(document).ready(function () {
-//   $('.mi-switch').change(function () {
-//     var status = $(this).prop('checked') == true ? 1 : 0;
-//     var id = $(this).data('id');
-//     console.log(status);
-//     $.ajax({
-//       type: "GET",
-//       dataType: "json",
-//       url: '{{route("activar.farmaco")}}',
-//       data: { 'estatus': status, 'id': id },
-//       success: function (data) {
-//         $('#resp' + id).html(data.var);
-//         console.log(data.var)
-
-//       }
-//     })
-//   })
-// });
-
-// $(function () {
-//   $('.mi-switch').change(function () {
-//     var status = $(this).prop('checked') == true ? 1 : 0;
-//     var id = $(this).prop('id');
-//     $.ajax({
-//       type: "GET",
-//       dataType: "json",
-//       url: '/updateA',
-//       data:{
-//         'status':status,
-//         'id':id,
-//         success:function (data) {
-//           console.log('Success');
-//         }
-//       },
-//     });
-//   });
-// });
 /*Vista previa imagen */
 $(document).ready(function (e) {
   $('#image').change(function () {
