@@ -86,10 +86,10 @@
                     </div>
 
                     <div class="mb-3 col-md-9 pt-3">
-                        <div class="form-check">
+                        <!-- <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="1" id="estatus" name="estatus">
                             <label class="form-check-label" for="flexCheckDefault">Estatus</label>
-                        </div>
+                        </div> -->
                     </div>
                     
                     <input type="submit" class="btn btn-primary " value="Guardar">

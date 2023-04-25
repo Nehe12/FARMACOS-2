@@ -177,7 +177,7 @@ class FarmacoController extends Controller
         $farmaco = Farmacos::find($id);
         $id = $farmaco->id;
         $url = $farmaco->url;
-        
+
         if ($request->hasFile('image')) {
             // $get_url = Storage::get($url);
             Storage::delete($url);
@@ -247,50 +247,26 @@ class FarmacoController extends Controller
         return redirect()->route('edit.farmaco', compact('id', 'biblioselect', 'bibliografia'))->with('success', 'Actualizado con exito!!');
     }*/
 
-    public function activo(Request $request)
+    public function activo(Request $request, $id)
     {
-        //  $farmaco_UP=Farmacos::find($request->id);
-
-        //  $farmaco_UP->status=$request->status;
-        //  $farmaco_UP->save();
-
-
-        // $farmaco_UP = Farmacos::findOrFail($id);
-        // $farmaco_UP->status = $request->estado;
-        // $farmaco_UP->save();
-        // return response()->json(['success' => 'Estado actualizado correctamente.']);
-
-
-        //   $farmacoUp = Farmacos::findOrFail($request->id)->update(['status'=>$request->estatus]);
-        //   dd($farmacoUp);
-
-        //   if ($request->estatus==1) {
-        //       $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
-        //   }else {
-        //      $newStatus ='<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
-        //   }
-        //   return print("hola");
-        //   return response()->json(['var'=>''.$newStatus.'']);
-        $farmaco = Farmacos::find($request->id);
-        if (isset($request->estatus)) {
-            $farmaco->status = $request->estatus;
-            
-        } else {
-            $farmaco->status = 0;
-            
+        $farmaco = Farmacos::find($id);
+        // dd($request->input('estatus'));
+        if ($request->input('estatus') == 1) {
+            $nuevoEstatus = $request->input('estatus') == 'checked' ? 1 : 0;
+        }else{
+            $nuevoEstatus = $request->input('estatus') == 'checked' ? 0 : 1;
         }
         
-        
+        $farmaco->status = $nuevoEstatus;
         $farmaco->save();
-        // $farmacoUp = Farmacos::findOrFail($request->id)->update(['status'=>$request->estatus]);
 
-        if ($request->estatus == 0) {
-            $newStatus = '<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
-        } else {
-            $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
-        }
+        $sql = "SELECT `farmacos`.`id`, `farmacos`.`farmaco`, `farmacos`.`mecanismo`, `farmacos`.`url`, `farmacos`.`efecto`, `farmacos`.`status`, `grupo_farmacos`.`grupo`
+        FROM `farmacos` 
+            LEFT JOIN `grupo_farmacos` ON `farmacos`.`id_grupo` = `grupo_farmacos`.`id`";
+        $farmacos = DB::select($sql);
 
-        return response()->json(['var' => '' . $newStatus . '']);
+
+        return view("index", compact('farmacos'));
     }
 
     /**

@@ -12,7 +12,7 @@ return new class extends Migration
             $table ->id();
             $table ->string('grupo');
             $table ->text('subgrupo');
-            $table ->integer('estatus')->default(0);
+            $table ->integer('estatus')->default(1);
             $table ->timestamps();
         });
     }

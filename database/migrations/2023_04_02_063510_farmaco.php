@@ -18,7 +18,6 @@ return new class extends Migration
             $table->text('public_id');
             $table->text('url');
             $table->text('efecto');
-            
             $table->unsignedBigInteger('id_grupo')->nullable();
             $table->foreign('id_grupo')->references('id')->on('grupo_farmacos')->onUpdate('cascade')->onDelete('set null');
             $table->integer('status')->default(1);

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('autor');
             $table->string('anio');
             $table->string('editorial');
-            $table->integer('estatus')->default(0);
+            $table->integer('estatus')->default(1);
             $table->timestamps();
            
         });

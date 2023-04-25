@@ -143,6 +143,19 @@ $(document).ready(function () {
   $('#farmaco').DataTable({
     "lengthMenu": [[10, 20, 30, 50, 100, -1], [10, 20, 30, 50, 100, "All"]]
   });
+  $('form').on('submit', function (event) {
+    event.preventDefault();
+    var form = $(this);
+    $.ajax({
+      url:form.attr('action'),
+      method:'PUT',
+      data:form.serialize(),
+      dataType:'json',
+      success:function (response){
+        var estatus=response.
+      }
+    })
+  })
 });
 /* Tabla interacciones*/
 $(document).ready(function () {
@@ -267,3 +280,38 @@ $(document).ready(function (e) {
 })
 
 
+/*<!-- <script type="text/javascript">
+    $(document).ready(function() {
+
+        $('.mi_checkbox').change(function() {
+            //Verifico el estado del checkbox, si esta seleccionado sera igual a 1 de lo contrario sera igual a 0
+            var estatus = $(this).prop('checked') == true ? 1 : 0;
+            var id = $(this).data('id');
+            console.log(estatus);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+
+                method: "GET",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                dataType: "json",
+                //url: '/StatusNoticia',
+                url: '{{ route("activar.farmaco") }}',
+                data: {
+                    'estatus': estatus,
+                    'id': id,
+                    //  "_token": $("meta[name='csrf-token']").attr("content"),
+                },
+                success: function(data) {
+                    $('#resp' + id).html(data.var);
+                    console.log(data.var)
+
+                }
+            });
+        })
+
+    });
+</script> -->*/

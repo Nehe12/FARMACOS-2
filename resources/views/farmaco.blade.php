@@ -191,10 +191,10 @@ use Illuminate\Support\Str;
                 <input type="text" class="form-control" id="editorial" name="editorial" placeholder="Editorial" required>
               </div>
               <div class="mb-3 col-md-9">
-                <div class="form-check">
+                <!-- <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="1" id="estatus" name="estatus">
                   <label class="form-check-label" for="flexCheckDefault">Estatus</label>
-                </div>
+                </div> -->
               </div>
               <!-- <a href="{{route('crear.farmaco')}}" class="btn btn-info">REGRESAR</a> -->
               <input type="submit" value="Guardar" class="btn btn-primary">
@@ -231,8 +231,8 @@ use Illuminate\Support\Str;
 
               <div class="mb-3 col-md-9">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="1" id="estatus" name="estatus">
-                  <label class="form-check-label" for="flexCheckDefault">Estatus</label>
+                  <!-- <input class="form-check-input" type="checkbox" value="1" id="estatus" name="estatus"> -->
+                  <!-- <label class="form-check-label" for="flexCheckDefault">Estatus</label> -->
                 </div>
               </div>
               <!-- <a href="{{route('crear.farmaco')}}" class="btn btn-info">REGRESAR</a> -->

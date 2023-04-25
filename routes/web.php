@@ -21,7 +21,7 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 Route::controller(FarmacoController::class)->group(function () {
     Route::get('/', "index")->name('inicio');
-    Route::get('/updateA','activo')->name('activar.farmaco');
+    
     Route::get('/farmaco',"create")->name('crear.farmaco');
     // Route::get('/farmaco', "create")->name('crear.farmaco');
     Route::post('/farmaco/saveForm', 'store')->name('store.farmaco');
@@ -33,6 +33,7 @@ Route::controller(FarmacoController::class)->group(function () {
     Route::get('/eliminar/{id}', "show")->name('show.farmaco');
     Route::delete('/destroy/{id}', "destroy")->name('destroy.farmaco');
     Route::get('/mostrar/{id}', 'mostrar')->name('ver.farmaco');
+    Route::put('activar/{id}','activo')->name('activar.farmaco');
 });
 Route::controller(BibliografiaController::class)->group(function () {
     Route::get('/bibliografia', 'create')->name('create.bibliografia');

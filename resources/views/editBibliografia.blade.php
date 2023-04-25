@@ -100,10 +100,10 @@
                         <input type="text" class="form-control" id="editorialU" name="editorialU" placeholder="Editorial" required>
                     </div>
                     <div class="mb-3 col-md-9 pt-3">
-                        <div class="form-check">
+                        <!-- <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="1" id="estatusU" name="estatusU">
                             <label class="form-check-label" for="flexCheckDefault">Estatus</label>
-                        </div>
+                        </div> -->
                     </div>
 
                     <input type="submit" value="Guardar" class="btn btn-primary">
