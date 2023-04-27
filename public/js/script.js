@@ -165,20 +165,20 @@ $('.delete_bibliografia').click(function (event) {
 });
 /* Tabla farmaco */
 $(document).ready(function () {
-  $('#farmaco').DataTable({
+  $('#farmaco_index').DataTable({
     "lengthMenu": [[10, 20, 30, 50, 100, -1], [10, 20, 30, 50, 100, "All"]]
   });
-  $('form').on('submit', function (event) {
-    event.preventDefault();
-    var form = $(this);
-    $.ajax({
-      url:form.attr('action'),
-      method:'PUT',
-      data:form.serialize(),
-      dataType:'json',
+  //  $('form').on('submit', function (event) {
+  //    event.preventDefault();
+  //    var form = $(this);
+  //    $.ajax({
+  //      url:form.attr('action'),
+  //      method:'PUT',
+  //      data:form.serialize(),
+  //      dataType:'json',
       
-    })
-  })
+  //    })
+  //  })
 });
 /* Tabla interacciones*/
 $(document).ready(function () {

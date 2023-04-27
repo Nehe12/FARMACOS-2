@@ -44,6 +44,23 @@ class BibliografiaController extends Controller
         $bibliografia->save();
         return redirect('/farmaco');
     }
+    public function store2(Request $request)
+    {
+        
+        $bibliografia = new Bibliografias();
+        $bibliografia->titulo=$request->titulo;
+        $bibliografia->descripcion=$request->descripcion;
+        $bibliografia->autor=$request->autor;
+        $bibliografia->anio=$request->año;
+        $bibliografia->editorial=$request->editorial;
+        if (isset($request->estatus)) {
+            $bibliografia->estatus=$request->input('estatus');
+           }else {
+               $bibliografia->estatus=0;
+           }
+        $bibliografia->save();
+        return redirect()->route('show.biblios');
+    }
 
     /**
      * Display the specified resource.

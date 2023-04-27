@@ -43,8 +43,9 @@ use Illuminate\Support\Str;
 
     <div class="row">
 
-      <form class="was-validated container-fluid justify-content-start" action="{{route('store.farmaco')}}" method="post" enctype="multipart/form-data">
+      <form class="was-validated container-fluid justify-content-start" action="{{route('store.farmaco')}}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method("post")
         <div class="row">
           <div class="col">
             <div class="col-md-12">
@@ -123,42 +124,7 @@ use Illuminate\Support\Str;
       </form>
 
     </div>
-    <!-- Interaccion -->
-    <div class="modal fade " id="interaccion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            @if(isset($itemfarmaco))
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Interaccion para el {{$itemfarmaco->farmaco}}</h1>
-            @endif
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="{{route('store.farmaco')}}" method="post">
-
-              @csrf
-              <div class="mb-3 col-md-9 pt-3">
-                <label for="interaccion" class="form-label">Interacción</label>
-                <input type="text" class="form-control" id="interaccion" name="interaccion" placeholder="Interaccion" required>
-              </div>
-              <!-- @if(isset($itemfarmaco))
-                <input type="number" value="{{$itemfarmaco->id}}" name="id_interaccion" hidden>
-                @endif -->
-              <div class="mb-3 col-md-9 pt-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="1" id="estatus" name="estatus">
-                  <label class="form-check-label" for="flexCheckDefault">Estatus</label>
-                </div>
-              </div>
-              <a href="{{route('inicio')}}" class="btn btn-info">INICIO</a>
-              <a href="{{route('crear.farmaco')}}" class="btn btn-info">REGRESAR</a>
-              <input type="submit" class="btn btn-primary " value="Guardar">
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </div>
+  
     <!-- Modal Bibliografia -->
     <div class="modal fade" id="bibliografiaM" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">

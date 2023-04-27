@@ -54,6 +54,7 @@ class FarmacoController extends Controller
         $farmaco = new Farmacos();
         $path = Storage::disk('google')->put('farmacos_img', $request->file('image'));
         $url = Storage::disk('google')->url($path);
+
         // $image = $request->file('image');
         // $path  = $image->store('farmacoImg','google');
         // $url = Storage::disk('google')->url($path);
@@ -181,11 +182,12 @@ class FarmacoController extends Controller
         if ($request->hasFile('image')) {
             // $get_url = Storage::get($url);
             Storage::delete($url);
+           
             // dd(Storage::delete('farmacos_img',$url));
             $path = Storage::disk('google')->put('farmacos_img', $request->file('image'));
             $url = Storage::disk('google')->url($path);
             // dd($url);
-        }
+        } 
         $farmaco->farmaco = $request->farmaco;
         $farmaco->mecanismo = $request->mecanismo;
         $farmaco->public_id = '$public_id';
@@ -253,10 +255,10 @@ class FarmacoController extends Controller
         // dd($request->input('estatus'));
         if ($request->input('estatus') == 1) {
             $nuevoEstatus = $request->input('estatus') == 'checked' ? 1 : 0;
-        }else{
+        } else {
             $nuevoEstatus = $request->input('estatus') == 'checked' ? 0 : 1;
         }
-        
+
         $farmaco->status = $nuevoEstatus;
         $farmaco->save();
 

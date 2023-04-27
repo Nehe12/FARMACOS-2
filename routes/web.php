@@ -24,6 +24,7 @@ Route::controller(FarmacoController::class)->group(function () {
     
     Route::get('/farmaco',"create")->name('crear.farmaco');
     // Route::get('/farmaco', "create")->name('crear.farmaco');
+    // Route::match(['post','put'],'/farmaco/saveForm', 'store')->name('store.farmaco');
     Route::post('/farmaco/saveForm', 'store')->name('store.farmaco');
 
     Route::get('/editarFarmaco/{id}', "edit")->name('edit.farmaco');
@@ -39,6 +40,7 @@ Route::controller(BibliografiaController::class)->group(function () {
     Route::get('/bibliografia', 'create')->name('create.bibliografia');
     Route::get('/editBibliografia','index')->name('show.biblios');
     Route::post('/bibliografia/savebiblio', 'store')->name('store.bibliografia');
+    Route::post('/savebiblioC', 'store2')->name('store2.bibliografia');
     Route::put('/updateB','update')->name('update.biblio');
     Route::delete('/destroyB/{id}','destroy')->name('destroy.biblio');
 });

@@ -22,7 +22,7 @@
                     </div>
                 </div>
 
-                <table id="farmaco" class="table table-striped responsive" style="width:100%" style="white-space: nowrap; overflow-x: auto;">
+                <table id="farmaco_index" class="table table-striped responsive" style="width:100%" style="white-space: nowrap; overflow-x: auto;">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -46,7 +46,7 @@
                             <td>{{$far->mecanismo}}</td>
                             <td>{{$far->efecto}}</td>
                             <td>{{$far->grupo}}</td>
-                            <td id="resp{{$far->id}}">
+                            <td id="{{$far->id}}">
 
                                 @if($far->status == 1 )
                                 <button type="button" class="btn btn-sm btn-success">Activo</button>
@@ -57,7 +57,7 @@
                             <td>
                                 <form action="{{ route('activar.farmaco', $far->id) }}" method="POST">
                                     @csrf
-
+                                    @method('PUT')
                                     <input type="hidden" name="_method" value="PUT">
                                     <input type="hidden" name="estatus" value="{{ $far->status }}   ">
                                     <div class="form-check form-switch">
@@ -78,7 +78,7 @@
                                 </div>
                             </td>
                             <td>
-                               
+
                                 <form class="delete_farmaco" action="{{route('destroy.farmaco',$far->id)}}" method="post">
                                     @csrf
                                     @method('DELETE')
